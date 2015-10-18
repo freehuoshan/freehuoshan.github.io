@@ -6,33 +6,30 @@
   <title>maven的聚合于继承 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="###聚合
-
 &amp;lt;modules&amp;gt;
     &amp;lt;module&amp;gt;preservice-dao&amp;lt;/module&amp;gt;
     &amp;lt;module&amp;gt;preservice-core&amp;lt;/module&amp;gt;
     &amp;lt;module&amp;gt;preservice-impl&amp;lt;/module&amp;gt;
-    &amp;lt;module&amp;gt;preservice-sh">
+    &amp;lt;module&amp;gt;preservice-sha">
 <meta property="og:type" content="article">
 <meta property="og:title" content="maven的聚合于继承">
 <meta property="og:url" content="http://yoursite.com/2015/10/18/maven的聚合于继承/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="###聚合
-
 &amp;lt;modules&amp;gt;
     &amp;lt;module&amp;gt;preservice-dao&amp;lt;/module&amp;gt;
     &amp;lt;module&amp;gt;preservice-core&amp;lt;/module&amp;gt;
     &amp;lt;module&amp;gt;preservice-impl&amp;lt;/module&amp;gt;
-    &amp;lt;module&amp;gt;preservice-sh">
-<meta property="og:updated_time" content="2015-10-18T01:24:30.186Z">
+    &amp;lt;module&amp;gt;preservice-sha">
+<meta property="og:updated_time" content="2015-10-18T01:30:37.378Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="maven的聚合于继承">
 <meta name="twitter:description" content="###聚合
-
 &amp;lt;modules&amp;gt;
     &amp;lt;module&amp;gt;preservice-dao&amp;lt;/module&amp;gt;
     &amp;lt;module&amp;gt;preservice-core&amp;lt;/module&amp;gt;
     &amp;lt;module&amp;gt;preservice-impl&amp;lt;/module&amp;gt;
-    &amp;lt;module&amp;gt;preservice-sh">
+    &amp;lt;module&amp;gt;preservice-sha">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -100,9 +97,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>###聚合</p>
-</blockquote>
+        <p>###聚合</p>
 <pre><code>&lt;modules&gt;
     &lt;<span class="class"><span class="keyword">module</span>&gt;<span class="title">preservice</span>-<span class="title">dao</span><span class="inheritance">&lt;</span>/<span class="title">module</span>&gt;</span>
     &lt;<span class="class"><span class="keyword">module</span>&gt;<span class="title">preservice</span>-<span class="title">core</span><span class="inheritance">&lt;</span>/<span class="title">module</span>&gt;</span>
@@ -110,53 +105,48 @@
     &lt;<span class="class"><span class="keyword">module</span>&gt;<span class="title">preservice</span>-<span class="title">share</span><span class="inheritance">&lt;</span>/<span class="title">module</span>&gt;</span>
     &lt;<span class="class"><span class="keyword">module</span>&gt;<span class="title">preservice</span>-<span class="title">war</span><span class="inheritance">&lt;</span>/<span class="title">module</span>&gt;</span>
 &lt;<span class="regexp">/modules&gt;</span>
-</code></pre><blockquote>
-<p>###继承<br>    <dependencies><br>              <dependency><br>              <groupid>junit</groupid><br>              <artifactid>junit</artifactid><br>            </dependency></dependencies></p>
-</blockquote>
-<pre><code>     <span class="variable">&lt;dependency&gt;</span>
-         <span class="variable">&lt;groupId&gt;</span>${<span class="keyword">group</span>.id}<span class="variable">&lt;/groupId&gt;</span>
-         <span class="variable">&lt;artifactId&gt;</span>preservice-dao<span class="variable">&lt;/artifactId&gt;</span>
-         <span class="variable">&lt;version&gt;</span>${project.version}<span class="variable">&lt;/version&gt;</span>
-     <span class="variable">&lt;/dependency&gt;</span>
+</code></pre><p>###继承<br>        <dependencies><br>              <dependency><br>              <groupid>junit</groupid><br>              <artifactid>junit</artifactid><br>        </dependency></dependencies></p>
+<pre><code><span class="variable">&lt;dependency&gt;</span>
+        <span class="variable">&lt;groupId&gt;</span>${<span class="keyword">group</span>.id}<span class="variable">&lt;/groupId&gt;</span>
+        <span class="variable">&lt;artifactId&gt;</span>preservice-dao<span class="variable">&lt;/artifactId&gt;</span>
+        <span class="variable">&lt;version&gt;</span>${project.version}<span class="variable">&lt;/version&gt;</span>
+<span class="variable">&lt;/dependency&gt;</span>
 
-     <span class="variable">&lt;dependency&gt;</span>
-         <span class="variable">&lt;groupId&gt;</span>${<span class="keyword">group</span>.id}<span class="variable">&lt;/groupId&gt;</span>
-         <span class="variable">&lt;artifactId&gt;</span>preservice-core<span class="variable">&lt;/artifactId&gt;</span>
-         <span class="variable">&lt;version&gt;</span>${project.version}<span class="variable">&lt;/version&gt;</span>
-     <span class="variable">&lt;/dependency&gt;</span>
+<span class="variable">&lt;dependency&gt;</span>
+        <span class="variable">&lt;groupId&gt;</span>${<span class="keyword">group</span>.id}<span class="variable">&lt;/groupId&gt;</span>
+        <span class="variable">&lt;artifactId&gt;</span>preservice-core<span class="variable">&lt;/artifactId&gt;</span>
+        <span class="variable">&lt;version&gt;</span>${project.version}<span class="variable">&lt;/version&gt;</span>
+<span class="variable">&lt;/dependency&gt;</span>
 
-     <span class="variable">&lt;dependency&gt;</span>
-         <span class="variable">&lt;groupId&gt;</span>com.huoshan.preservice<span class="variable">&lt;/groupId&gt;</span>
-         <span class="variable">&lt;artifactId&gt;</span>preservice-share<span class="variable">&lt;/artifactId&gt;</span>
-         <span class="variable">&lt;version&gt;</span><span class="number">0.0</span>.<span class="number">1</span>-SNAPSHORT<span class="variable">&lt;/version&gt;</span>
-     <span class="variable">&lt;/dependency&gt;</span>
-  <span class="variable">&lt;/dependencies&gt;</span>
+<span class="variable">&lt;dependency&gt;</span>
+        <span class="variable">&lt;groupId&gt;</span>com.huoshan.preservice<span class="variable">&lt;/groupId&gt;</span>
+        <span class="variable">&lt;artifactId&gt;</span>preservice-share<span class="variable">&lt;/artifactId&gt;</span>
+        <span class="variable">&lt;version&gt;</span><span class="number">0.0</span>.<span class="number">1</span>-SNAPSHORT<span class="variable">&lt;/version&gt;</span>
+    <span class="variable">&lt;/dependency&gt;</span>
+<span class="variable">&lt;/dependencies&gt;</span>
+</code></pre><p>  一般在父模块中这样:</p>
+<pre><code><span class="tag">&lt;<span class="title">dependencyManagement</span>&gt;</span>
+      <span class="tag">&lt;<span class="title">dependencies</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">dependency</span>&gt;</span>
+          <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span>
+          <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span>
+          <span class="tag">&lt;<span class="title">version</span>&gt;</span>${junit.version}<span class="tag">&lt;/<span class="title">version</span>&gt;</span>
+          <span class="tag">&lt;<span class="title">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="title">scope</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">dependency</span>&gt;</span>
+      <span class="tag">&lt;/<span class="title">dependencies</span>&gt;</span>
+ <span class="tag">&lt;/<span class="title">dependencyManagement</span>&gt;</span>
+</code></pre><p>这样如果子模块想要使用某个模块只需:</p>
+<pre><code><span class="tag">&lt;<span class="title">dependency</span>&gt;</span>
+      <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span>
+      <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span>
 
- 一般在父模块中这样:
-
- <span class="variable">&lt;dependencyManagement&gt;</span>
-       <span class="variable">&lt;dependencies&gt;</span>
-         <span class="variable">&lt;dependency&gt;</span>
-           <span class="variable">&lt;groupId&gt;</span>junit<span class="variable">&lt;/groupId&gt;</span>
-           <span class="variable">&lt;artifactId&gt;</span>junit<span class="variable">&lt;/artifactId&gt;</span>
-           <span class="variable">&lt;version&gt;</span>${junit.version}<span class="variable">&lt;/version&gt;</span>
-           <span class="variable">&lt;scope&gt;</span>test<span class="variable">&lt;/scope&gt;</span>
-         <span class="variable">&lt;/dependency&gt;</span>
-       <span class="variable">&lt;/dependencies&gt;</span>
-  <span class="variable">&lt;/dependencyManagement&gt;</span>
-
-这样如果子模块想要使用某个模块只需:
- <span class="variable">&lt;dependency&gt;</span>
-       <span class="variable">&lt;groupId&gt;</span>junit<span class="variable">&lt;/groupId&gt;</span>
-       <span class="variable">&lt;artifactId&gt;</span>junit<span class="variable">&lt;/artifactId&gt;</span>
-     <span class="variable">&lt;/dependency&gt;</span>
-
- 这样声明即可,如果不声明,子模块不会继承父模块 <span class="variable">&lt;dependencyManagement&gt;</span>中的依赖
+这样声明即可,如果不声明,子模块不会继承父模块 <span class="tag">&lt;<span class="title">dependencyManagement</span>&gt;</span>中的依赖
 </code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/18/maven的聚合于继承/" data-id="cifvtz7on00013dswkssye0jp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/18/maven的聚合于继承/" data-id="cifvu6wzt0001fiswmjnaoou5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/maven/">maven</a></li></ul>

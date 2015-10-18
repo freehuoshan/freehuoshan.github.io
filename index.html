@@ -61,6 +61,48 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/18/hello-world/" class="article-date">
+  <time datetime="2015-10-18T06:14:52.041Z" itemprop="datePublished">2015-10-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/18/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+        
+          <p class="article-more-link">
+            <a href="/2015/10/18/hello-world/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/10/18/hello-world/" data-id="cifw4chsm0000snsw2ajqhtmb" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-nexus私服使用" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/10/18/nexus私服使用/" class="article-date">
@@ -86,32 +128,16 @@
         <ol>
 <li>下载</li>
 </ol>
-<p>在<a href="http://www.sonatype.org/" target="_blank" rel="external">http://www.sonatype.org/</a></p>
-<p><img src="http://7xire1.com1.z0.glb.clouddn.com/2015-10-18%2012%3A25%3A24屏幕截图.png" alt=""></p>
-<p>选择download第一项下载.tar.gz或.zip压缩包</p>
-<p>在本地解压到nexus,进入到nexus/nexus-2.11.4-01/bin/运行</p>
-<pre><code>huoshan-ThinkPad-Edge-E431<span class="comment"># ./nexus start</span>
-<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>
-WARNING - NOT RECOMMENDED TO RUN AS ROOT
-<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>
-If you insist running as root, then set the environment variable RUN_AS_USER=root before
-running this script.
-huoshan-ThinkPad-Edge-E431<span class="comment"># ls</span>
-</code></pre><p>没有正常启动,然后编辑nexus,设置RUAN_AS_ROOT=root或其他linux用户再次启动正常.正常启动在8081端口,修改端口可在nexus/nexus-2.11.4-01/conf/nexus.properties文件中修改端口.</p>
-<p>访问:登录,admin默认密码admin123</p>
-<p><img src="http://7xire1.com1.z0.glb.clouddn.com/2015-10-18%2013%3A35%3A03屏幕截图.png" alt=""></p>
-<p><img src="http://7xire1.com1.z0.glb.clouddn.com/2015-10-18%2013%3A37%3A12屏幕截图.png" alt=""></p>
-<p>central代理仓库:代理maven中央仓库是代理仓库,策略为release,会下载中央仓库release版本</p>
-<p>release宿主仓库:部署组织内部发布的release版本</p>
-<p>snapshort宿主仓库:部署组织内部发布的snapshort版本</p>
-<p>apacheSnapshort代理仓库:代理maven中央仓库snapshort版本</p>
-<p>codehaussnapshort代理仓库:代理codehaus仓库snapshort版本</p>
-<p>type:group(仓库组),proxy(代理远程仓库),host(组织内部发布)</p>
-
+<p>在<a href="http://www.sonatype.org/">http://www.sonatype.org/</a></p>
+        
+          <p class="article-more-link">
+            <a href="/2015/10/18/nexus私服使用/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/18/nexus私服使用/" data-id="cifw44vl60001gqsw8gpk10je" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/18/nexus私服使用/" data-id="cifw4chtj0001snsw5kywv4lc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/maven/">maven</a></li></ul>
@@ -161,56 +187,11 @@ huoshan-ThinkPad-Edge-E431<span class="comment"># ls</span>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/18/maven的聚合与继承/" data-id="cifw44vm20004gqsw6559f4m2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/18/maven的聚合与继承/" data-id="cifw4chto0004snsw3gqm7wrb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/maven/">maven</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/10/15/hello-world/" class="article-date">
-  <time datetime="2015-10-15T14:10:32.955Z" itemprop="datePublished">2015-10-15</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/15/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/15/hello-world/" data-id="cifw44vke0000gqswvprd5evw" class="article-share-link">Share</a>
-      
-      
     </footer>
   </div>
   
@@ -259,15 +240,15 @@ huoshan-ThinkPad-Edge-E431<span class="comment"># ls</span>
       <ul>
         
           <li>
+            <a href="/2015/10/18/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
             <a href="/2015/10/18/nexus私服使用/">nexus私服使用</a>
           </li>
         
           <li>
             <a href="/2015/10/18/maven的聚合与继承/">maven的聚合于继承</a>
-          </li>
-        
-          <li>
-            <a href="/2015/10/15/hello-world/">Hello World</a>
           </li>
         
       </ul>

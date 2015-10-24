@@ -3,18 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Mybatis的parameters | Hexo</title>
+  <title>Tag: HEXO | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="传值：原生类型或简单数据类型（比如整型或字符串）">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Mybatis的parameters">
-<meta property="og:url" content="http://yoursite.com/2015/10/21/Mybatis的parameters/index.html">
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/tags/HEXO/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="传值：原生类型或简单数据类型（比如整型或字符串）">
-<meta property="og:updated_time" content="2015-10-21T13:41:57.337Z">
+<meta property="og:description">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mybatis的parameters">
-<meta name="twitter:description" content="传值：原生类型或简单数据类型（比如整型或字符串）">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -60,90 +59,39 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Mybatis的parameters" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/10/21/Mybatis的parameters/" class="article-date">
-  <time datetime="2015-10-21T13:24:47.000Z" itemprop="datePublished">2015-10-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+        <section id="main">
   
-    <h1 class="article-title" itemprop="name">
-      Mybatis的parameters
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2015" class="archive-year">2015</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2015/10/24/HEXO使用github/" class="archive-article-date">
+  <time datetime="2015-10-24T00:56:03.000Z" itemprop="datePublished">Oct 24</time>
+</a>
+      
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2015/10/24/HEXO使用github/">HEXO使用github</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="传值：">传值：</h2><h3 id="原生类型或简单数据类型（比如整型或字符串）">原生类型或简单数据类型（比如整型或字符串）</h3><a id="more"></a>
-<pre><code>&lt;select <span class="property">id</span>=<span class="string">"selectUsers"</span> resultType=<span class="string">"User"</span>&gt;
-  select <span class="property">id</span>, username, password
-  <span class="keyword">from</span> users
-  <span class="keyword">where</span> <span class="property">id</span> = <span class="comment">#{id}</span>
-&lt;/select&gt;
-</code></pre><p><em><strong>mybatis有内建的类型转换器</strong></em></p>
-<h3 id="复杂对象（自定义User对象）">复杂对象（自定义User对象）</h3><pre><code>&lt;insert <span class="property">id</span>=<span class="string">"insertUser"</span> parameterType=<span class="string">"User"</span>&gt;
-  insert <span class="keyword">into</span> users (<span class="property">id</span>, username, password)
-  values (<span class="comment">#{id}, #{username}, #{password})</span>
-&lt;/insert&gt;
-</code></pre><p><em><strong>会自动查找User对象的这几个属性，并进行匹配</strong></em></p>
-<p><em><strong>在某些时候需要指定类型(比如某个值为空)</strong></em></p>
-<ul>
-<li><p>使用mybatis已有的类型转换器:</p>
-<pre><code><span class="number">1.</span><span class="preprocessor">#{property,javaType=int,jdbcType=NUMERIC}</span>
-<span class="number">2.</span><span class="preprocessor">#{height,javaType=double,jdbcType=NUMERIC,numericScale=<span class="number">2</span>}(小数类型保留位数)</span>
-</code></pre></li>
-<li><p>使用自定义类型转换器：</p>
-<pre><code>#{<span class="ruby">age,javaType=int,jdbcType=<span class="constant">NUMERIC</span>,typeHandler=<span class="constant">MyTypeHandler</span>}</span>
-</code></pre></li>
-</ul>
-<p><em><strong>如果某个传入的值可能为空，那么一定要指定jdbcType</strong></em></p>
-<hr>
-<h2 id="字符串替换：">字符串替换：</h2><p>默认情况下，使用#{}向预处理语句中（？）传值。</p>
-<p>如果想要向sql语句中替换一个字符串，如表字段或表名，使用${}</p>
-<p><em><strong>为了防止sql注入，这个替换字符串不应该是被用户输入的字段，如果不可避免，则必须要校验</strong></em></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/21/Mybatis的parameters/" data-id="cig4e26ie0015btswkb3etcv8" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mybatis/">mybatis</a></li></ul>
-
-    </footer>
+    </header>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2015/10/21/mybatis-spring的使用/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          mybatis-spring的使用
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2015/10/21/Mybatis自动生成主键/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Mybatis自动生成主键</div>
-    </a>
-  
-</nav>
-
-  
 </article>
-
+  
+  
+    </div></section>
+  
 </section>
         
           <aside id="sidebar">

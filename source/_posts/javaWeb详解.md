@@ -13,6 +13,8 @@ tags: javaWeb
 
 > servlet详解
 
+WIKI:[https://zh.wikipedia.org/wiki/Java_Servlet](https://zh.wikipedia.org/wiki/Java_Servlet)
+
 参考:[http://www.journaldev.com/1877/java-servlet-tutorial-with-examples-for-beginners](http://www.journaldev.com/1877/java-servlet-tutorial-with-examples-for-beginners)
 
 

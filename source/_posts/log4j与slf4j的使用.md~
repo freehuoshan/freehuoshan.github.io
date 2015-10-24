@@ -1,0 +1,12 @@
+title: log4j与slf4j的使用
+date: 2015-10-19 22:02:17
+tags: log4j
+---
+
+在maven中添加依赖
+
+<dependency>
+  <groupId>org.slf4j</groupId>
+  <artifactId>slf4j-log4j12</artifactId>
+  <version>1.7.12</version>
+</dependency>

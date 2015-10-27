@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Mybatis自动生成主键 | 火山</title>
+  <title>使用Maven+Nexus+Jenkins+Svn+Tomcat+Sonar搭建持续集成环境 | 火山</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="数据库支持自动生成主键">
+  <meta name="description" content="参考:http://chengtong-java.iteye.com/blog/2251957">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mybatis自动生成主键">
-<meta property="og:url" content="http://yoursite.com/2015/10/21/Mybatis自动生成主键/index.html">
+<meta property="og:title" content="使用Maven+Nexus+Jenkins+Svn+Tomcat+Sonar搭建持续集成环境">
+<meta property="og:url" content="http://yoursite.com/2015/10/27/使用Maven-Nexus-Jenkins-Svn-Tomcat-Sonar搭建持续集成环境/index.html">
 <meta property="og:site_name" content="火山">
-<meta property="og:description" content="数据库支持自动生成主键">
-<meta property="og:updated_time" content="2015-10-21T13:35:30.921Z">
+<meta property="og:description" content="参考:http://chengtong-java.iteye.com/blog/2251957">
+<meta property="og:updated_time" content="2015-10-27T15:09:28.083Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mybatis自动生成主键">
-<meta name="twitter:description" content="数据库支持自动生成主键">
+<meta name="twitter:title" content="使用Maven+Nexus+Jenkins+Svn+Tomcat+Sonar搭建持续集成环境">
+<meta name="twitter:description" content="参考:http://chengtong-java.iteye.com/blog/2251957">
   
     <link rel="alternative" href="/atom.xml" title="火山" type="application/atom+xml">
   
@@ -60,10 +60,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Mybatis自动生成主键" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-使用Maven-Nexus-Jenkins-Svn-Tomcat-Sonar搭建持续集成环境" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/10/21/Mybatis自动生成主键/" class="article-date">
-  <time datetime="2015-10-21T13:24:29.000Z" itemprop="datePublished">2015-10-21</time>
+    <a href="/2015/10/27/使用Maven-Nexus-Jenkins-Svn-Tomcat-Sonar搭建持续集成环境/" class="article-date">
+  <time datetime="2015-10-27T15:08:49.000Z" itemprop="datePublished">2015-10-27</time>
 </a>
     
   </div>
@@ -74,7 +74,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Mybatis自动生成主键
+      使用Maven+Nexus+Jenkins+Svn+Tomcat+Sonar搭建持续集成环境
     </h1>
   
 
@@ -82,30 +82,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="数据库支持自动生成主键">数据库支持自动生成主键</h2><a id="more"></a>
-<pre><code>&lt;insert id="insertAuthor" useGeneratedKeys="true"
-    keyProperty="id"&gt;
-  insert into Author (username,password,email,bio)
-  values (#{<span class="ruby">username}</span>,#{<span class="ruby">password}</span>,#{<span class="ruby">email}</span>,#{<span class="ruby">bio}</span>)
-&lt;/insert&gt;
-</code></pre><h2 id="对于不支持自动生成主键的数据库也可以这样">对于不支持自动生成主键的数据库也可以这样</h2><pre><code>&lt;insert id="insertAuthor"&gt;
-  &lt;selectKey keyProperty="id" resultType="int" order="BEFORE"&gt;
-    select CAST(RANDOM()*1000000 as INTEGER) a from SYSIBM.SYSDUMMY1
-  &lt;/selectKey&gt;
-  insert into Author
-    (id, username, password, email,bio, favourite_section)
-  values
-    (#{<span class="ruby">id}</span>, #{<span class="ruby">username}</span>, #{<span class="ruby">password}</span>, #{<span class="ruby">email}</span>, #{<span class="ruby">bio}</span>, #{<span class="ruby">favouriteSection,jdbcType=<span class="constant">VARCHAR</span>}</span>)
-&lt;/insert&gt;
-</code></pre><p><strong>但不建议这样干</strong></p>
+        <p><strong>参考:<a href="http://chengtong-java.iteye.com/blog/2251957" target="_blank" rel="external">http://chengtong-java.iteye.com/blog/2251957</a></strong></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/21/Mybatis自动生成主键/" data-id="cig9ieo4h001qw5swvwuvwvas" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/27/使用Maven-Nexus-Jenkins-Svn-Tomcat-Sonar搭建持续集成环境/" data-id="cig9ieo2q000aw5swjt9yxet2" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mybatis/">mybatis</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/maven/">maven</a></li></ul>
 
     </footer>
   </div>
@@ -113,19 +98,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/10/21/Mybatis的parameters/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Mybatis的parameters
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/10/21/spring-PropertyPlaceholderConfigurer常量文件/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/10/27/配置sonar、jenkins进行持续审查/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">spring_PropertyPlaceholderConfigurer常量文件</div>
+      <div class="article-nav-title">配置sonar、jenkins进行持续审查</div>
     </a>
   
 </nav>

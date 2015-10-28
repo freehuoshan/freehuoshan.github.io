@@ -3,17 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: mysql | 火山</title>
+  <title>Eclipse中maven第三方jar包源码关联 | 火山</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="火山">
-<meta property="og:url" content="http://yoursite.com/tags/mysql/index.html">
+  <meta name="description" content="在pom文件中增加插件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Eclipse中maven第三方jar包源码关联">
+<meta property="og:url" content="http://yoursite.com/2015/10/28/Eclipse中maven第三方jar包源码关联/index.html">
 <meta property="og:site_name" content="火山">
-<meta property="og:description">
+<meta property="og:description" content="在pom文件中增加插件">
+<meta property="og:image" content="http://7xire1.com1.z0.glb.clouddn.com/QQ截图20151028131605.png">
+<meta property="og:image" content="http://7xire1.com1.z0.glb.clouddn.com/QQ截图20151028131651.png">
+<meta property="og:updated_time" content="2015-10-28T13:16:22.188Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="火山">
-<meta name="twitter:description">
+<meta name="twitter:title" content="Eclipse中maven第三方jar包源码关联">
+<meta name="twitter:description" content="在pom文件中增加插件">
   
     <link rel="alternative" href="/atom.xml" title="火山" type="application/atom+xml">
   
@@ -59,77 +62,90 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/10/28/将远程数据库导入到本地数据库/" class="archive-article-date">
-  <time datetime="2015-10-28T13:13:38.000Z" itemprop="datePublished">Oct 28</time>
+        <section id="main"><article id="post-Eclipse中maven第三方jar包源码关联" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/28/Eclipse中maven第三方jar包源码关联/" class="article-date">
+  <time datetime="2015-10-28T13:14:04.000Z" itemprop="datePublished">2015-10-28</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/28/将远程数据库导入到本地数据库/">将远程数据库导入到本地数据库</a>
+    <h1 class="article-title" itemprop="name">
+      Eclipse中maven第三方jar包源码关联
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/10/27/SQL基础语句汇总/" class="archive-article-date">
-  <time datetime="2015-10-27T14:15:45.000Z" itemprop="datePublished">Oct 27</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/27/SQL基础语句汇总/">SQL基础语句汇总</a>
-    </h1>
-  
+        <blockquote>
+<p>在pom文件中增加插件</p>
+</blockquote>
+<a id="more"></a>
+<pre><code>&lt;plugin&gt;
+    &lt;groupId&gt;org<span class="class">.apache</span><span class="class">.maven</span><span class="class">.plugins</span>&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-eclipse-plugin&lt;/artifactId&gt;
+    &lt;version&gt;<span class="number">2.9</span>&lt;/version&gt;
+    &lt;configuration&gt;
+        &lt;additionalProjectnatures&gt;
+            &lt;projectnature&gt;org<span class="class">.eclipse</span><span class="class">.jdt</span><span class="class">.core</span><span class="class">.javanature</span>&lt;/projectnature&gt;
+            &lt;projectnature&gt;org<span class="class">.eclipse</span><span class="class">.m2e</span><span class="class">.core</span><span class="class">.maven2Nature</span>&lt;/projectnature&gt;
+            &lt;projectnature&gt;org<span class="class">.springframework</span><span class="class">.ide</span><span class="class">.eclipse</span><span class="class">.core</span><span class="class">.springnature</span>&lt;/projectnature&gt;
+        &lt;/additionalProjectnatures&gt;
+        &lt;additionalBuildcommands&gt;
+            &lt;buildcommand&gt;org<span class="class">.eclipse</span><span class="class">.jdt</span><span class="class">.core</span><span class="class">.javabuilder</span>&lt;/buildcommand&gt;
+            &lt;buildcommand&gt;org<span class="class">.eclipse</span><span class="class">.m2e</span><span class="class">.core</span><span class="class">.maven2Builder</span>&lt;/buildcommand&gt;
+            &lt;buildcommand&gt;org<span class="class">.springframework</span><span class="class">.ide</span><span class="class">.eclipse</span><span class="class">.core</span><span class="class">.springbuilder</span>&lt;/buildcommand&gt;
+        &lt;/additionalBuildcommands&gt;
+    &lt;/configuration&gt;
+&lt;/plugin&gt;
+</code></pre><blockquote>
+<p>然后分别执行</p>
+</blockquote>
+<p><img src="http://7xire1.com1.z0.glb.clouddn.com/QQ截图20151028131605.png" alt="http://7xire1.com1.z0.glb.clouddn.com/QQ截图20151028131605.png"></p>
+<p><img src="http://7xire1.com1.z0.glb.clouddn.com/QQ截图20151028131651.png" alt="http://7xire1.com1.z0.glb.clouddn.com/QQ截图20151028131651.png"></p>
+<p><em><strong>项目中的第三方jar包源码已经关联</strong></em></p>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/10/27/Linux下mysql的root密码忘记解决方法/" class="archive-article-date">
-  <time datetime="2015-10-27T14:06:50.000Z" itemprop="datePublished">Oct 27</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/27/Linux下mysql的root密码忘记解决方法/">Linux下mysql的root密码忘记解决方法</a>
-    </h1>
-  
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/10/28/Eclipse中maven第三方jar包源码关联/" data-id="cigatu8a9002aaaswhi1u9c38" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/maven/">maven</a></li></ul>
 
-    </header>
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/10/28/Eclipse常用快捷键/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Eclipse常用快捷键
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/10/28/将远程数据库导入到本地数据库/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">将远程数据库导入到本地数据库</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
 </section>
         
           <aside id="sidebar">

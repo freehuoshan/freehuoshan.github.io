@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://yoursite.com/2015/11/01/SpringMVC源码学习-base/index.html">
 <meta property="og:site_name" content="火山">
 <meta property="og:description" content="在web.xml配置如下拦截所有请求">
-<meta property="og:updated_time" content="2015-11-01T13:45:47.120Z">
+<meta property="og:updated_time" content="2015-11-01T13:47:55.020Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringMVC源码学习(base)">
 <meta name="twitter:description" content="在web.xml配置如下拦截所有请求">
@@ -141,8 +141,12 @@ throws <span class="type">ServletException</span>, <span class="type">IOExceptio
 </code></pre><blockquote>
 <p>最终真正去处理转发请求的是</p>
 </blockquote>
-<p> protected void doDispatch(HttpServletRequest request, HttpServletResponse response) throws Exception {<br>        HttpServletRequest processedRequest = request;<br>        HandlerExecutionChain mappedHandler = null;<br>        boolean multipartRequestParsed = false;</p>
-<pre><code>    WebAsyncManager asyncManager = WebAsyncUtils.getAsyncManager(request);
+<pre><code> <span class="keyword">protected</span> void doDispatch(HttpServletRequest request, HttpServletResponse response) throws <span class="keyword">Exception</span> {
+        HttpServletRequest processedRequest = request;
+        HandlerExecutionChain mappedHandler = <span class="keyword">null</span>;
+        <span class="keyword">boolean</span> multipartRequestParsed = <span class="keyword">false</span>;
+
+    WebAsyncManager asyncManager = WebAsyncUtils.getAsyncManager(request);
 
     <span class="keyword">try</span> {
         ModelAndView mv = <span class="keyword">null</span>;
@@ -219,7 +223,7 @@ throws <span class="type">ServletException</span>, <span class="type">IOExceptio
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/11/01/SpringMVC源码学习-base/" data-id="ciggkm5fy001l0mswgv4khmip" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/11/01/SpringMVC源码学习-base/" data-id="ciggkovtj001l2hswi5a287kl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringMVC/">SpringMVC</a></li></ul>

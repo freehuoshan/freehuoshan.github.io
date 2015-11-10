@@ -3,18 +3,39 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Groovy简介 | 火山</title>
+  <title>freemarker遍历求和 | 火山</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Grovy入门: http://blog.csdn.net/kmyhy/article/details/4200563">
+  <meta name="description" content="freemarker使用list遍历求和:
+
+&amp;lt;#assign pageall=0 page=0 page1=0&amp;gt;
+
+&amp;lt;#list geneReportList as report&amp;gt;
+
+        &amp;lt;#assign pageall= pageall+report.genelist.size()+1&amp;gt;
+        &amp;lt;#assign pagezun=p">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Groovy简介">
-<meta property="og:url" content="http://yoursite.com/2015/11/06/Groovy简介/index.html">
+<meta property="og:title" content="freemarker遍历求和">
+<meta property="og:url" content="http://yoursite.com/2015/11/10/freemarker遍历求和/index.html">
 <meta property="og:site_name" content="火山">
-<meta property="og:description" content="Grovy入门: http://blog.csdn.net/kmyhy/article/details/4200563">
-<meta property="og:updated_time" content="2015-11-06T14:30:36.785Z">
+<meta property="og:description" content="freemarker使用list遍历求和:
+
+&amp;lt;#assign pageall=0 page=0 page1=0&amp;gt;
+
+&amp;lt;#list geneReportList as report&amp;gt;
+
+        &amp;lt;#assign pageall= pageall+report.genelist.size()+1&amp;gt;
+        &amp;lt;#assign pagezun=p">
+<meta property="og:updated_time" content="2015-11-10T13:20:00.231Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Groovy简介">
-<meta name="twitter:description" content="Grovy入门: http://blog.csdn.net/kmyhy/article/details/4200563">
+<meta name="twitter:title" content="freemarker遍历求和">
+<meta name="twitter:description" content="freemarker使用list遍历求和:
+
+&amp;lt;#assign pageall=0 page=0 page1=0&amp;gt;
+
+&amp;lt;#list geneReportList as report&amp;gt;
+
+        &amp;lt;#assign pageall= pageall+report.genelist.size()+1&amp;gt;
+        &amp;lt;#assign pagezun=p">
   
     <link rel="alternative" href="/atom.xml" title="火山" type="application/atom+xml">
   
@@ -60,10 +81,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Groovy简介" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-freemarker遍历求和" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/11/06/Groovy简介/" class="article-date">
-  <time datetime="2015-11-06T14:29:57.000Z" itemprop="datePublished">2015-11-06</time>
+    <a href="/2015/11/10/freemarker遍历求和/" class="article-date">
+  <time datetime="2015-11-10T13:16:38.000Z" itemprop="datePublished">2015-11-10</time>
 </a>
     
   </div>
@@ -74,7 +95,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Groovy简介
+      freemarker遍历求和
     </h1>
   
 
@@ -82,15 +103,31 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Grovy入门: <a href="http://blog.csdn.net/kmyhy/article/details/4200563" target="_blank" rel="external">http://blog.csdn.net/kmyhy/article/details/4200563</a></p>
+        <blockquote>
+<p>freemarker使用list遍历求和:</p>
+</blockquote>
+<pre><code><span class="tag">&lt;<span class="title">#assign</span> <span class="attribute">pageall</span>=<span class="value">0</span> <span class="attribute">page</span>=<span class="value">0</span> <span class="attribute">page1</span>=<span class="value">0</span>&gt;</span>
 
+<span class="tag">&lt;<span class="title">#list</span> <span class="attribute">geneReportList</span> <span class="attribute">as</span> <span class="attribute">report</span>&gt;</span>
+
+        <span class="tag">&lt;<span class="title">#assign</span> <span class="attribute">pageall</span>= <span class="attribute">pageall</span>+<span class="attribute">report.genelist.size</span>()+<span class="attribute">1</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">#assign</span> <span class="attribute">pagezun</span>=<span class="value">pageall+2</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">#assign</span> <span class="attribute">page</span> = <span class="attribute">pageall</span> <span class="attribute">-</span> <span class="attribute">report.genelist.size</span>()&gt;</span>
+        <span class="tag">&lt;<span class="title">#if</span> <span class="attribute">geneReport_index</span> =<span class="value">=</span> <span class="attribute">report_index</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">#assign</span> <span class="attribute">page1</span>=<span class="value">page</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">#if</span>&gt;</span>
+
+<span class="tag">&lt;/<span class="title">#list</span>&gt;</span>
+
+P${pageall+2}-${page1}
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/11/06/Groovy简介/" data-id="cigtenm090032otswuqm9cxcg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/11/10/freemarker遍历求和/" data-id="cigtenlyp001potswxikapxid" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Groovy/">Groovy</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/freemarker/">freemarker</a></li></ul>
 
     </footer>
   </div>
@@ -98,19 +135,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/11/08/http协议/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          http协议
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/11/06/认识gradle/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/11/08/freemarker文档/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">认识gradle</div>
+      <div class="article-nav-title">freemarker文档</div>
     </a>
   
 </nav>

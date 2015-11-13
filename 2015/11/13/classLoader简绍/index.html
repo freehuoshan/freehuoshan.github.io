@@ -3,18 +3,36 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Java多态性详解——父类引用子类对象 | 火山</title>
+  <title>classLoader简绍 | 火山</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="参考：http://blog.csdn.net/hikvision_java_gyh/article/details/8957456">
+  <meta name="description" content="自定义classloader加载器
+
+ http://www.cnblogs.com/fangjian0423/p/java-classloader.html
+
+深入理解java类加载器
+
+ http://www.ibm.com/developerworks/cn/java/j-lo-classloader/">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java多态性详解——父类引用子类对象">
-<meta property="og:url" content="http://yoursite.com/2015/10/31/Java多态性详解——父类引用子类对象/index.html">
+<meta property="og:title" content="classLoader简绍">
+<meta property="og:url" content="http://yoursite.com/2015/11/13/classLoader简绍/index.html">
 <meta property="og:site_name" content="火山">
-<meta property="og:description" content="参考：http://blog.csdn.net/hikvision_java_gyh/article/details/8957456">
-<meta property="og:updated_time" content="2015-10-31T10:06:31.504Z">
+<meta property="og:description" content="自定义classloader加载器
+
+ http://www.cnblogs.com/fangjian0423/p/java-classloader.html
+
+深入理解java类加载器
+
+ http://www.ibm.com/developerworks/cn/java/j-lo-classloader/">
+<meta property="og:updated_time" content="2015-11-13T12:18:42.062Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java多态性详解——父类引用子类对象">
-<meta name="twitter:description" content="参考：http://blog.csdn.net/hikvision_java_gyh/article/details/8957456">
+<meta name="twitter:title" content="classLoader简绍">
+<meta name="twitter:description" content="自定义classloader加载器
+
+ http://www.cnblogs.com/fangjian0423/p/java-classloader.html
+
+深入理解java类加载器
+
+ http://www.ibm.com/developerworks/cn/java/j-lo-classloader/">
   
     <link rel="alternative" href="/atom.xml" title="火山" type="application/atom+xml">
   
@@ -60,10 +78,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Java多态性详解——父类引用子类对象" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-classLoader简绍" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/10/31/Java多态性详解——父类引用子类对象/" class="article-date">
-  <time datetime="2015-10-31T10:05:06.000Z" itemprop="datePublished">2015-10-31</time>
+    <a href="/2015/11/13/classLoader简绍/" class="article-date">
+  <time datetime="2015-11-13T12:16:26.000Z" itemprop="datePublished">2015-11-13</time>
 </a>
     
   </div>
@@ -74,7 +92,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Java多态性详解——父类引用子类对象
+      classLoader简绍
     </h1>
   
 
@@ -82,12 +100,19 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong> 参考：<a href="http://blog.csdn.net/hikvision_java_gyh/article/details/8957456" target="_blank" rel="external">http://blog.csdn.net/hikvision_java_gyh/article/details/8957456</a> </strong></p>
+        <blockquote>
+<p>自定义classloader加载器</p>
+</blockquote>
+<p> <a href="http://www.cnblogs.com/fangjian0423/p/java-classloader.html" target="_blank" rel="external">http://www.cnblogs.com/fangjian0423/p/java-classloader.html</a></p>
+<blockquote>
+<p>深入理解java类加载器</p>
+</blockquote>
+<p> <a href="http://www.ibm.com/developerworks/cn/java/j-lo-classloader/" target="_blank" rel="external">http://www.ibm.com/developerworks/cn/java/j-lo-classloader/</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/31/Java多态性详解——父类引用子类对象/" data-id="cigxmt5mc002zg4swxkdgsf70" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/11/13/classLoader简绍/" data-id="cigxmt5l2001wg4swm9rk8sex" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javase/">javase</a></li></ul>
@@ -98,19 +123,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/11/01/SpringMVC源码学习-base/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/11/13/理解操作系统中的线程与进程/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          SpringMVC源码学习(base)
+          理解操作系统中的线程与进程
         
       </div>
     </a>
   
   
-    <a href="/2015/10/31/Servlet中doGet与doPost的区别/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/11/10/freemarker遍历求和/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Servlet中doGet与doPost的区别</div>
+      <div class="article-nav-title">freemarker遍历求和</div>
     </a>
   
 </nav>

@@ -4,7 +4,7 @@ tags: eclipse
 ---
 
  经常有svn下来的代码，导入eclipse，部署到tomcat空加载，原因在于代码中.setting与....那三个配置文件中的项目
- <! -- more -->
+<!-- more -->
 名信息与现在真实项目名不同。以及代码下的webRoot或webContent与.setting。。。。那三个文件中的不同。
 
 解决办法：

@@ -209,6 +209,8 @@ a:focus {
       margin: 1.4em 0 1.1em; }
     .post .post-content pre code {
       padding: 0 2em; }
+    .post .post-content pre {
+      background: black; }
     .post .post-content p {
       margin: 0 0 1.234em; }
       .post .post-content p code {

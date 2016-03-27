@@ -210,7 +210,7 @@ a:focus {
     .post .post-content pre code {
       padding: 0 2em; }
     .post .post-content pre {
-      background: black; }
+      background: #FF545454; }
     .post .post-content p {
       margin: 0 0 1.234em; }
       .post .post-content p code {

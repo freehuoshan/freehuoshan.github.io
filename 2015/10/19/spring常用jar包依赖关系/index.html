@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>spring常用jar包依赖关系 | 火山</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="spring常用jar包功能简述: 
+spring.jar 是包含有完整发布模块的单个jar 包。这个在”3.03之后不再提供！想要该包的同学，把dist目录下的jar全部解压开，在打包成spring.jar即可。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spring常用jar包依赖关系">
+<meta property="og:url" content="http://yoursite.com/2015/10/19/spring常用jar包依赖关系/index.html">
+<meta property="og:site_name" content="火山">
+<meta property="og:description" content="spring常用jar包功能简述: 
+spring.jar 是包含有完整发布模块的单个jar 包。这个在”3.03之后不再提供！想要该包的同学，把dist目录下的jar全部解压开，在打包成spring.jar即可。">
+<meta property="og:updated_time" content="2015-10-19T15:42:56.937Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="spring常用jar包依赖关系">
+<meta name="twitter:description" content="spring常用jar包功能简述: 
+spring.jar 是包含有完整发布模块的单个jar 包。这个在”3.03之后不再提供！想要该包的同学，把dist目录下的jar全部解压开，在打包成spring.jar即可。">
+  
+    <link rel="alternative" href="/atom.xml" title="火山" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="null" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">John Doe</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>標籤</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>關於</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="/#" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Groovy/" style="font-size: 10px;">Groovy</a> <a href="/tags/HEXO/" style="font-size: 10px;">HEXO</a> <a href="/tags/SpringMVC/" style="font-size: 12px;">SpringMVC</a> <a href="/tags/eclipse/" style="font-size: 14px;">eclipse</a> <a href="/tags/freemarker/" style="font-size: 12px;">freemarker</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/hessian/" style="font-size: 10px;">hessian</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/javaWeb/" style="font-size: 20px;">javaWeb</a> <a href="/tags/javase/" style="font-size: 14px;">javase</a> <a href="/tags/jetty/" style="font-size: 10px;">jetty</a> <a href="/tags/linux/" style="font-size: 12px;">linux</a> <a href="/tags/log4j/" style="font-size: 10px;">log4j</a> <a href="/tags/markdown/" style="font-size: 12px;">markdown</a> <a href="/tags/maven/" style="font-size: 18px;">maven</a> <a href="/tags/mq/" style="font-size: 10px;">mq</a> <a href="/tags/mybatis/" style="font-size: 16px;">mybatis</a> <a href="/tags/mysql/" style="font-size: 14px;">mysql</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/spring/" style="font-size: 14px;">spring</a> <a href="/tags/tomcat/" style="font-size: 12px;">tomcat</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">奥巴马的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">卡卡的美丽传说</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">本泽马的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">吉格斯的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">习大大大不同</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">托蒂的博客</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">我是谁，我从哪里来，我到哪里去？我就是我，是颜色不一样的吃货…</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">John Doe</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="null" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">John Doe</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="/#" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-spring常用jar包依赖关系" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/19/spring常用jar包依赖关系/" class="article-date">
+  	<time datetime="2015-10-19T14:57:27.000Z" itemprop="datePublished">2015-10-19</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      spring常用jar包依赖关系
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring/">spring</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="spring常用jar包功能简述:"><strong> spring常用jar包功能简述: </strong></h2><ol>
+<li><p>spring.jar 是包含有完整发布模块的单个jar 包。这个在”3.03之后不再提供！想要该包的同学，把dist目录下的jar全部解压开，在打包成spring.jar即可。</p>
+<a id="more"></a>
+</li>
+<li><p>org.springframework.aop 包含在应用中使用Spring的AOP特性时所需的类。</p>
+</li>
+</ol>
+<ol>
+<li>org.springframework.asm  Spring独立的asm程序, Spring2.5.6的时候需要asmJar 包,3.0开始提供他自己独立的asmJar。</li>
+</ol>
+<ol>
+<li>org.springframework.aspects 提供对AspectJ的支持，以便可以方便的将面向方面的功能集成进IDE中，比如Eclipse AJDT。</li>
+</ol>
+<ol>
+<li>org.springframework.beans所有应用都要用到的，它包含访问配置文件、创建和管理bean以及进行Inversion of Control / Dependency Injection（IoC/DI）操作相关的所有类。</li>
+</ol>
+<ol>
+<li>org.springframework.context.support包含支持缓存Cache（ehcache）、JCA、JMX、邮件服务（Java Mail、COS Mail）、任务计划Scheduling（Timer、Quartz）方面的类。</li>
+</ol>
+<ol>
+<li>org.springframework.context为Spring核心提供了大量扩展。可以找到使用Spring ApplicationContext特性时所需的全部类，JDNI所需的全部类，UI方面的用来与模板（Templating）引擎如 Velocity、FreeMarker、JasperReports集成的类，以及校验Validation方面的相关类。</li>
+</ol>
+<ol>
+<li>org.springframework.core 包含Spring框架基本的核心工具类，Spring其它组件要都要使用到这个包里的类，是其它组件的基本核心。</li>
+</ol>
+<ol>
+<li>org.springframework.expression  Spring表达式语言。</li>
+</ol>
+<ol>
+<li>org.springframework.instrument.tomcat Spring3.0对Tomcat的连接池的集成。</li>
+</ol>
+<ol>
+<li>org.springframework.instrument Spring3.0对服务器的代理接口。</li>
+</ol>
+<ol>
+<li>org.springframework.jdbc 包含对Spring对JDBC数据访问进行封装的所有类。</li>
+</ol>
+<ol>
+<li>org.springframework.jms 提供了对JMS 1.0.2/1.1的支持类。</li>
+</ol>
+<ol>
+<li>org.springframework.orm 包含Spring对DAO特性集进行了扩展，使其支持 iBATIS、JDO、OJB、TopLink，因为Hibernate已经独立成包了，现在不包含在这个包里了。这个jar文件里大部分的类都要依赖spring-dao.jar里的类，用这个包时你需要同时包含spring-dao.jar包。</li>
+</ol>
+<ol>
+<li>org.springframework.oxm  Spring 对Object/XMl的映射支持,可以让Java与XML之间来回切换。</li>
+</ol>
+<ol>
+<li>org.springframework.test  对Junit等测试框架的简单封装。</li>
+</ol>
+<ol>
+<li>org.springframework.transaction为JDBC、Hibernate、JDO、JPA等提供的一致的声明式和编程式事务管理。</li>
+</ol>
+<ol>
+<li>org.springframework.web.portlet  SpringMVC的增强。</li>
+</ol>
+<ol>
+<li>org.springframework.web.servlet  对J2EE6.0 的Servlet3.0的支持。</li>
+</ol>
+<ol>
+<li>org.springframework.web.struts Struts框架支持，可以更方便更容易的集成Struts框架。</li>
+</ol>
+<ol>
+<li>org.springframework.web 包含Web应用开发时，用到Spring框架时所需的核心类，包括自动载入WebApplicationContext特性的类、Struts与JSF集成类、文件上传的支持类、Filter类和大量工具辅助类。  </li>
+</ol>
+<p>(1) spring-core.jar </p>
+<p>这个jar文件包含Spring框架基本的核心工具类，Spring其它组件要都要使用到这个包里的类，是其它组件的基本核心，当然你也可以在自己的应用系统中使用这些工具类。 </p>
+<p>(2) spring-beans.jar </p>
+<p>这个jar文件是所有应用都要用到的，它包含访问配置文件、创建和管理bean以及进行Inversion of Control / Dependency Injection（IoC/DI）操作相关的所有类。如果应用只需基本的IoC/DI支持，引入spring-core.jar及spring- beans.jar文件就可以了。 </p>
+<p>(3) spring-aop.jar </p>
+<p>这个jar文件包含在应用中使用Spring的AOP特性时所需的类。使用基于AOP的Spring特性，如声明型事务管理（Declarative Transaction Management），也要在应用里包含这个jar包。 </p>
+<p>(4) spring-context.jar </p>
+<p>　　这个jar文件为Spring核心提供了大量扩展。可以找到使用Spring ApplicationContext特性时所需的全部类，JDNI所需的全部类，UI方面的用来与模板（Templating）引擎如 Velocity、FreeMarker、JasperReports集成的类，以及校验Validation方面的相关类。 </p>
+<p>(5) spring-dao.jar </p>
+<p>　　这个jar文件包含Spring DAO、Spring Transaction进行数据访问的所有类。为了使用声明型事务支持，还需在自己的应用里包含spring-aop.jar。</p>
+<p>(6) spring-hibernate.jar </p>
+<p>　　这个jar文件包含Spring对Hibernate 2及Hibernate 3进行封装的所有类。 </p>
+<p>(7) spring-jdbc.jar </p>
+<p>　　这个jar文件包含对Spring对JDBC数据访问进行封装的所有类。 </p>
+<p>(8) spring-orm.jar </p>
+<p>　　这个jar文件包含Spring对DAO特性集进行了扩展，使其支持 iBATIS、JDO、OJB、TopLink，因为Hibernate已经独立成包了，现在不包含在这个包里了。这个jar文件里大部分的类都要依赖 spring-dao.jar里的类，用这个包时你需要同时包含spring-dao.jar包。 </p>
+<p>(9) spring-remoting.jar </p>
+<p>　　这个jar文件包含支持EJB、JMS、远程调用Remoting（RMI、Hessian、Burlap、Http Invoker、JAX-RPC）方面的类。 </p>
+<p>(10) spring-support.jar </p>
+<p>　　这个jar文件包含支持缓存Cache（ehcache）、JCA、JMX、邮件服务（Java Mail、COS Mail）、任务计划Scheduling（Timer、Quartz）方面的类。 </p>
+<p>(11) spring-web.jar </p>
+<p>　　这个jar文件包含Web应用开发时，用到Spring框架时所需的核心类，包括自动载入WebApplicationContext特性的类、Struts与JSF集成类、文件上传的支持类、Filter类和大量工具辅助类。 </p>
+<p>(12) spring-webmvc.jar </p>
+<p>　　这个jar文件包含Spring MVC框架相关的所有类。包含国际化、标签、Theme、视图展现的FreeMarker、JasperReports、Tiles、Velocity、 XSLT相关类。当然，如果你的应用使用了独立的MVC框架，则无需这个JAR文件里的任何类。 </p>
+<p>(13) spring-mock.jar </p>
+<p>　　这个jar文件包含Spring一整套mock类来辅助应用的测试。Spring测试套件使用了其中大量mock类，这样测试就更加简单。模拟HttpServletRequest和HttpServletResponse类在Web应用单元测试是很方便的。 </p>
+<hr>
+<h2 id="Spring常用jar包依赖说明:"><strong> Spring常用jar包依赖说明: </strong></h2><p>1) spring-core.jar需commons-collections.jar，spring-core.jar是以下其它各个的基本。 </p>
+<p>2) spring-beans.jar需spring-core.jar，cglib-nodep-2.1_3.jar </p>
+<p>3) spring-aop.jar需spring-core.jar，spring-beans.jar，cglib-nodep-2.1_3.jar，aopalliance.jar </p>
+<p>4) spring-context.jar需spring-core.jar，spring-beans.jar，spring-aop.jar，commons-collections.jar，aopalliance.jar </p>
+<p>5) spring-dao.jar需spring-core.jar，spring-beans.jar，spring-aop.jar，spring-context.jar </p>
+<p>6) spring-jdbc.jar需spring-core.jar，spring-beans.jar，spring-dao.jar </p>
+<p>7) spring-web.jar需spring-core.jar，spring-beans.jar，spring-context.jar </p>
+<p>8) spring-webmvc.jar需spring-core.jar/spring-beans.jar/spring-context.jar/spring-web.jar </p>
+<p>9) spring -hibernate.jar需spring-core.jar，spring-beans.jar，spring-aop.jar，spring- dao.jar，spring-jdbc.jar，spring-orm.jar，spring-web.jar，spring-webmvc.jar </p>
+<p>10) spring-orm.jar需spring-core.jar，spring-beans.jar，spring-aop.jar，spring- dao.jar，spring-jdbc.jar，spring-web.jar，spring-webmvc.jar </p>
+<p>11) spring -remoting.jar需spring-core.jar，spring-beans.jar，spring-aop.jar，spring- dao.jar，spring-context.jar，spring-web.jar，spring-webmvc.jar </p>
+<p>12) spring-support.jar需spring-core.jar，spring-beans.jar，spring-aop.jar，spring-dao.jar，spring-context.jar，spring-jdbc.jar </p>
+<p>13) spring-mock.jar需spring-core.jar，spring-beans.jar，spring-dao.jar，spring-context.jar，spring-jdbc.jar  </p>
+<blockquote>
+<p> 以上内容引自: <a href="http://blog.csdn.net/shenzhen_zsw/article/details/11399373" target="_blank" rel="external">http://blog.csdn.net/shenzhen_zsw/article/details/11399373</a></p>
+</blockquote>
+<hr>
+<p><strong> 由于依赖性,所以一般maven项目中只需要简短依赖： </strong></p>
+<pre><code><span class="comment">&lt;!-- spring依赖 --&gt;</span>
+
+    <span class="tag">&lt;<span class="title">dependency</span>&gt;</span>
+      <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span>
+      <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-tx<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span>
+      <span class="tag">&lt;<span class="title">version</span>&gt;</span>4.2.1.RELEASE<span class="tag">&lt;/<span class="title">version</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">dependency</span>&gt;</span>
+
+    <span class="tag">&lt;<span class="title">dependency</span>&gt;</span>
+      <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span>
+      <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-context-support<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span>
+      <span class="tag">&lt;<span class="title">version</span>&gt;</span>4.2.1.RELEASE<span class="tag">&lt;/<span class="title">version</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">dependency</span>&gt;</span>
+
+    <span class="tag">&lt;<span class="title">dependency</span>&gt;</span>
+      <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span>
+      <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-aspects<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span>
+      <span class="tag">&lt;<span class="title">version</span>&gt;</span>4.2.1.RELEASE<span class="tag">&lt;/<span class="title">version</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">dependency</span>&gt;</span>
+</code></pre>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/10/21/Mybatis的使用/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Mybatis的使用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/10/19/log4j与slf4j的使用/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">log4j与slf4j的使用</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="spring常用jar包依赖关系" data-title="spring常用jar包依赖关系" data-url="http://yoursite.com/2015/10/19/spring常用jar包依赖关系/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 John Doe
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

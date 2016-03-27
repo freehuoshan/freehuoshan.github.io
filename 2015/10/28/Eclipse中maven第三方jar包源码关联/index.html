@@ -62,90 +62,63 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Eclipse中maven第三方jar包源码关联" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="<%= post.layout %>-<%= post.slug %>" class="article article-type-<%= post.layout %>" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/10/28/Eclipse中maven第三方jar包源码关联/" class="article-date">
-  <time datetime="2015-10-28T13:14:04.000Z" itemprop="datePublished">2015-10-28</time>
-</a>
-    
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
   </div>
   <div class="article-inner">
-    
-    
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
       <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Eclipse中maven第三方jar包源码关联
-    </h1>
-  
-
+        <%- partial('post/title', {class_name: 'article-title'}) %>
       </header>
-    
+    <% } %>
     <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>在pom文件中增加插件</p>
-</blockquote>
-<a id="more"></a>
-<pre><code>&lt;plugin&gt;
-    &lt;groupId&gt;org<span class="class">.apache</span><span class="class">.maven</span><span class="class">.plugins</span>&lt;/groupId&gt;
-    &lt;artifactId&gt;maven-eclipse-plugin&lt;/artifactId&gt;
-    &lt;version&gt;<span class="number">2.9</span>&lt;/version&gt;
-    &lt;configuration&gt;
-        &lt;additionalProjectnatures&gt;
-            &lt;projectnature&gt;org<span class="class">.eclipse</span><span class="class">.jdt</span><span class="class">.core</span><span class="class">.javanature</span>&lt;/projectnature&gt;
-            &lt;projectnature&gt;org<span class="class">.eclipse</span><span class="class">.m2e</span><span class="class">.core</span><span class="class">.maven2Nature</span>&lt;/projectnature&gt;
-            &lt;projectnature&gt;org<span class="class">.springframework</span><span class="class">.ide</span><span class="class">.eclipse</span><span class="class">.core</span><span class="class">.springnature</span>&lt;/projectnature&gt;
-        &lt;/additionalProjectnatures&gt;
-        &lt;additionalBuildcommands&gt;
-            &lt;buildcommand&gt;org<span class="class">.eclipse</span><span class="class">.jdt</span><span class="class">.core</span><span class="class">.javabuilder</span>&lt;/buildcommand&gt;
-            &lt;buildcommand&gt;org<span class="class">.eclipse</span><span class="class">.m2e</span><span class="class">.core</span><span class="class">.maven2Builder</span>&lt;/buildcommand&gt;
-            &lt;buildcommand&gt;org<span class="class">.springframework</span><span class="class">.ide</span><span class="class">.eclipse</span><span class="class">.core</span><span class="class">.springbuilder</span>&lt;/buildcommand&gt;
-        &lt;/additionalBuildcommands&gt;
-    &lt;/configuration&gt;
-&lt;/plugin&gt;
-</code></pre><blockquote>
-<p>然后分别执行</p>
-</blockquote>
-<p><img src="http://7xire1.com1.z0.glb.clouddn.com/QQ截图20151028131605.png" alt="http://7xire1.com1.z0.glb.clouddn.com/QQ截图20151028131605.png"></p>
-<p><img src="http://7xire1.com1.z0.glb.clouddn.com/QQ截图20151028131651.png" alt="http://7xire1.com1.z0.glb.clouddn.com/QQ截图20151028131651.png"></p>
-<p><em><strong>项目中的第三方jar包源码已经关联</strong></em></p>
-
-      
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
+          <p class="article-more-link">
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
+          </p>
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/28/Eclipse中maven第三方jar包源码关联/" data-id="cii0atk6v003lg5swsqyznmur" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/maven/">maven</a></li></ul>
-
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" class="article-share-link">Share</a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link">Comments</a>
+      <% } %>
+      <%- partial('post/tag') %>
     </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2015/10/28/Eclipse常用快捷键/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Eclipse常用快捷键
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2015/10/28/将远程数据库导入到本地数据库/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">将远程数据库导入到本地数据库</div>
-    </a>
-  
-</nav>
-
-  
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
 </article>
 
+ <% if (!index && post.comments && config.duoshuo_shortname){ %>
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="<%= post.layout %>-<%= post.slug %>" data-title="<%= post.title %>" data-url="<%= page.permalink %>"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'<%= config.duoshuo_shortname %>'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  <% } %>
 </section>
         
           <aside id="sidebar">
@@ -217,7 +190,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2015 John Doe<br>
+      &copy; 2016 John Doe<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

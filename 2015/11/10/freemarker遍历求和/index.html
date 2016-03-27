@@ -81,80 +81,63 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-freemarker遍历求和" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="<%= post.layout %>-<%= post.slug %>" class="article article-type-<%= post.layout %>" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/11/10/freemarker遍历求和/" class="article-date">
-  <time datetime="2015-11-10T13:16:38.000Z" itemprop="datePublished">2015-11-10</time>
-</a>
-    
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
   </div>
   <div class="article-inner">
-    
-    
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
       <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      freemarker遍历求和
-    </h1>
-  
-
+        <%- partial('post/title', {class_name: 'article-title'}) %>
       </header>
-    
+    <% } %>
     <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>freemarker使用list遍历求和:</p>
-</blockquote>
-<pre><code><span class="tag">&lt;<span class="title">#assign</span> <span class="attribute">pageall</span>=<span class="value">0</span> <span class="attribute">page</span>=<span class="value">0</span> <span class="attribute">page1</span>=<span class="value">0</span>&gt;</span>
-
-<span class="tag">&lt;<span class="title">#list</span> <span class="attribute">geneReportList</span> <span class="attribute">as</span> <span class="attribute">report</span>&gt;</span>
-
-        <span class="tag">&lt;<span class="title">#assign</span> <span class="attribute">pageall</span>= <span class="attribute">pageall</span>+<span class="attribute">report.genelist.size</span>()+<span class="attribute">1</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">#assign</span> <span class="attribute">pagezun</span>=<span class="value">pageall+2</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">#assign</span> <span class="attribute">page</span> = <span class="attribute">pageall</span> <span class="attribute">-</span> <span class="attribute">report.genelist.size</span>()&gt;</span>
-        <span class="tag">&lt;<span class="title">#if</span> <span class="attribute">geneReport_index</span> =<span class="value">=</span> <span class="attribute">report_index</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">#assign</span> <span class="attribute">page1</span>=<span class="value">page</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">#if</span>&gt;</span>
-
-<span class="tag">&lt;/<span class="title">#list</span>&gt;</span>
-
-P${pageall+2}-${page1}
-</code></pre>
-      
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
+          <p class="article-more-link">
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
+          </p>
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/11/10/freemarker遍历求和/" data-id="cii0atk56001zg5swpas7w4ax" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/freemarker/">freemarker</a></li></ul>
-
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" class="article-share-link">Share</a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link">Comments</a>
+      <% } %>
+      <%- partial('post/tag') %>
     </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2015/11/13/classLoader简绍/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          classLoader简绍
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2015/11/08/freemarker文档/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">freemarker文档</div>
-    </a>
-  
-</nav>
-
-  
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
 </article>
 
+ <% if (!index && post.comments && config.duoshuo_shortname){ %>
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="<%= post.layout %>-<%= post.slug %>" data-title="<%= post.title %>" data-url="<%= page.permalink %>"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'<%= config.duoshuo_shortname %>'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  <% } %>
 </section>
         
           <aside id="sidebar">
@@ -226,7 +209,7 @@ P${pageall+2}-${page1}
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2015 John Doe<br>
+      &copy; 2016 John Doe<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

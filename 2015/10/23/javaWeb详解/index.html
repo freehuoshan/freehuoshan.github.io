@@ -69,94 +69,63 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-javaWeb详解" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="<%= post.layout %>-<%= post.slug %>" class="article article-type-<%= post.layout %>" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/10/23/javaWeb详解/" class="article-date">
-  <time datetime="2015-10-23T14:34:20.000Z" itemprop="datePublished">2015-10-23</time>
-</a>
-    
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
   </div>
   <div class="article-inner">
-    
-    
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
       <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      javaWeb详解
-    </h1>
-  
-
+        <%- partial('post/title', {class_name: 'article-title'}) %>
       </header>
-    
+    <% } %>
     <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>JavaWeb基础</p>
-</blockquote>
-<p>包括动态网站基本结构、Servlet、JSp与容器的交互、和网络的基本概念.</p>
-<p>参考:<strong><a href="http://www.journaldev.com/1854/java-web-application-tutorial-for-beginners" target="_blank" rel="external">http://www.journaldev.com/1854/java-web-application-tutorial-for-beginners</a></strong></p>
-<a id="more"></a>
-<blockquote>
-<p>servlet详解</p>
-</blockquote>
-<p>WIKI:<strong><a href="https://zh.wikipedia.org/wiki/Java_Servlet" target="_blank" rel="external">https://zh.wikipedia.org/wiki/Java_Servlet</a></strong></p>
-<p>参考:<strong><a href="http://www.journaldev.com/1877/java-servlet-tutorial-with-examples-for-beginners" target="_blank" rel="external">http://www.journaldev.com/1877/java-servlet-tutorial-with-examples-for-beginners</a></strong></p>
-<blockquote>
-<p>Session详解</p>
-</blockquote>
-<p>参考:<strong><a href="http://www.journaldev.com/1907/java-servlet-session-management-tutorial-with-examples-of-cookies-httpsession-and-url-rewriting" target="_blank" rel="external">http://www.journaldev.com/1907/java-servlet-session-management-tutorial-with-examples-of-cookies-httpsession-and-url-rewriting</a></strong></p>
-<blockquote>
-<p>Filter详解</p>
-</blockquote>
-<p>参考:<strong><a href="http://www.journaldev.com/1933/java-servlet-filter-example-tutorial" target="_blank" rel="external">http://www.journaldev.com/1933/java-servlet-filter-example-tutorial</a></strong></p>
-<blockquote>
-<p>listener详解</p>
-</blockquote>
-<p>参考:<strong><a href="http://www.journaldev.com/1945/servlet-listener-example-servletcontextlistener-httpsessionlistener-and-servletrequestlistener" target="_blank" rel="external">http://www.journaldev.com/1945/servlet-listener-example-servletcontextlistener-httpsessionlistener-and-servletrequestlistener</a></strong></p>
-<blockquote>
-<p>Cookie详解</p>
-</blockquote>
-<p>参考：<strong><a href="http://www.journaldev.com/1956/servlet-cookie-example-tutorial" target="_blank" rel="external">http://www.journaldev.com/1956/servlet-cookie-example-tutorial</a></strong></p>
-<blockquote>
-<p>Servlet异常和错误的处理</p>
-</blockquote>
-<p>参考: <strong><a href="http://www.journaldev.com/1973/servlet-exception-and-error-handling-example-tutorial" target="_blank" rel="external">http://www.journaldev.com/1973/servlet-exception-and-error-handling-example-tutorial</a></strong></p>
-
-      
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
+          <p class="article-more-link">
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
+          </p>
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/23/javaWeb详解/" data-id="cii0atk4l001kg5swvvaj87ql" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaWeb/">javaWeb</a></li></ul>
-
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" class="article-share-link">Share</a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link">Comments</a>
+      <% } %>
+      <%- partial('post/tag') %>
     </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2015/10/23/Servlet文件上传/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Servlet文件上传
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2015/10/23/Servlet3上传文件/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Servlet3上传文件</div>
-    </a>
-  
-</nav>
-
-  
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
 </article>
 
+ <% if (!index && post.comments && config.duoshuo_shortname){ %>
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="<%= post.layout %>-<%= post.slug %>" data-title="<%= post.title %>" data-url="<%= page.permalink %>"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'<%= config.duoshuo_shortname %>'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  <% } %>
 </section>
         
           <aside id="sidebar">
@@ -228,7 +197,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2015 John Doe<br>
+      &copy; 2016 John Doe<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

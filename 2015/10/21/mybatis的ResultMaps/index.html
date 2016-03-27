@@ -60,155 +60,63 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-mybatis的ResultMaps" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="<%= post.layout %>-<%= post.slug %>" class="article article-type-<%= post.layout %>" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/10/21/mybatis的ResultMaps/" class="article-date">
-  <time datetime="2015-10-21T14:23:04.000Z" itemprop="datePublished">2015-10-21</time>
-</a>
-    
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
   </div>
   <div class="article-inner">
-    
-    
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
       <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      mybatis的ResultMaps
-    </h1>
-  
-
+        <%- partial('post/title', {class_name: 'article-title'}) %>
       </header>
-    
+    <% } %>
     <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p> <strong>（官网文档:<a href="http://mybatis.github.io/mybatis-3/zh/sqlmap-xml.html#Result_Maps" target="_blank" rel="external">http://mybatis.github.io/mybatis-3/zh/sqlmap-xml.html#Result_Maps</a>)</strong></p>
-</blockquote>
-<a id="more"></a>
-<h2 id="简单结果映射">简单结果映射</h2><ul>
-<li><p>列名与属性名匹配（会自动匹配,忽略大小写）官网文档<a href="http://mybatis.github.io/mybatis-3/zh/sqlmap-xml.html#Auto-mapping" target="_blank" rel="external">http://mybatis.github.io/mybatis-3/zh/sqlmap-xml.html#Auto-mapping</a></p>
-<pre><code>&lt;select <span class="property">id</span>=<span class="string">"selectUsers"</span> resultType=<span class="string">"com.someapp.model.User"</span>&gt;
-  select <span class="property">id</span>, username, hashedPassword
-  <span class="keyword">from</span> some_table
-  <span class="keyword">where</span> <span class="property">id</span> = <span class="comment">#{id}</span>
-&lt;/select&gt;
-</code></pre></li>
-<li><p>列名与属性名不匹配（手动匹配）</p>
-<pre><code> &lt;resultMap id=<span class="string">"userResultMap"</span> <span class="keyword">type</span>=<span class="string">"User"</span>&gt;
-  &lt;id property=<span class="string">"id"</span> column=<span class="string">"user_id"</span> /&gt;
-  &lt;<span class="literal">result</span> property=<span class="string">"username"</span> column=<span class="string">"user_name"</span>/&gt;
-  &lt;<span class="literal">result</span> property=<span class="string">"password"</span> column=<span class="string">"hashed_password"</span>/&gt;
-&lt;/resultMap&gt;
-</code></pre></li>
-</ul>
-<p> 或</p>
-<pre><code>&lt;<span class="keyword">select</span> id=<span class="string">"selectUsers"</span> resultType=<span class="string">"User"</span>&gt;
-  <span class="keyword">select</span>
-    user_id             <span class="keyword">as</span> <span class="string">"id"</span>,
-    user_name           <span class="keyword">as</span> <span class="string">"userName"</span>,
-    hashed_password     <span class="keyword">as</span> <span class="string">"hashedPassword"</span>
-  <span class="keyword">from</span> some_table
-  <span class="keyword">where</span> id = <span class="preprocessor">#{id}</span>
-&lt;/<span class="keyword">select</span>&gt;
-</code></pre><hr>
-<h2 id="复杂结果映射">复杂结果映射</h2><p>官方例子:一个博客对应一个作者，一个博客对应多篇文章</p>
-<ul>
-<li><p>含有复合类型(自定义类型)</p>
-<pre><code>&lt;resultMap id=<span class="string">"blogResult"</span> <span class="keyword">type</span>=<span class="string">"Blog"</span>&gt;
-  &lt;id property=<span class="string">"id"</span> column=<span class="string">"blog_id"</span> /&gt;
-  &lt;<span class="literal">result</span> property=<span class="string">"title"</span> column=<span class="string">"blog_title"</span>/&gt;
-  &lt;!-- 对应一个作者 ,使用javaType指定类型--&gt;
-  &lt;association property=<span class="string">"author"</span> javaType=<span class="string">"Author"</span>&gt;
-    &lt;id property=<span class="string">"id"</span> column=<span class="string">"author_id"</span>/&gt;
-    &lt;<span class="literal">result</span> property=<span class="string">"username"</span> column=<span class="string">"author_username"</span>/&gt;
-    &lt;<span class="literal">result</span> property=<span class="string">"password"</span> column=<span class="string">"author_password"</span>/&gt;
-    &lt;<span class="literal">result</span> property=<span class="string">"email"</span> column=<span class="string">"author_email"</span>/&gt;
-    &lt;<span class="literal">result</span> property=<span class="string">"bio"</span> column=<span class="string">"author_bio"</span>/&gt;
-  &lt;/association&gt;
-&lt;/resultMap&gt;
-</code></pre></li>
-</ul>
-<p>  可以复用</p>
-<pre><code>&lt;resultMap id=<span class="string">"blogResult"</span> <span class="keyword">type</span>=<span class="string">"Blog"</span>&gt;
-  &lt;id property=<span class="string">"id"</span> column=<span class="string">"blog_id"</span> /&gt;
-  &lt;<span class="literal">result</span> property=<span class="string">"title"</span> column=<span class="string">"blog_title"</span>/&gt;
-  &lt;!-- 需要使用resultMap指定结果映射 --&gt;
-  &lt;association property=<span class="string">"author"</span> column=<span class="string">"blog_author_id"</span> javaType=<span class="string">"Author"</span> resultMap=<span class="string">"authorResult"</span>/&gt;
-
-
-
-&lt;/resultMap&gt;
-
-&lt;resultMap id=<span class="string">"authorResult"</span> <span class="keyword">type</span>=<span class="string">"Author"</span>&gt;
-  &lt;id property=<span class="string">"id"</span> column=<span class="string">"author_id"</span>/&gt;
-  &lt;<span class="literal">result</span> property=<span class="string">"username"</span> column=<span class="string">"author_username"</span>/&gt;
-  &lt;<span class="literal">result</span> property=<span class="string">"password"</span> column=<span class="string">"author_password"</span>/&gt;
-  &lt;<span class="literal">result</span> property=<span class="string">"email"</span> column=<span class="string">"author_email"</span>/&gt;
-  &lt;<span class="literal">result</span> property=<span class="string">"bio"</span> column=<span class="string">"author_bio"</span>/&gt;
-&lt;/resultMap&gt;
-</code></pre><ul>
-<li><p>含有集合(collection)</p>
-<pre><code>&lt;resultMap id=<span class="string">"blogResult"</span> <span class="keyword">type</span>=<span class="string">"Blog"</span>&gt;
-  &lt;id property=<span class="string">"id"</span> column=<span class="string">"blog_id"</span> /&gt;
-  &lt;<span class="literal">result</span> property=<span class="string">"title"</span> column=<span class="string">"blog_title"</span>/&gt;
-  &lt;!-- 对应多篇文章，使用ofType指定类型 --&gt;
-  &lt;collection property=<span class="string">"posts"</span> ofType=<span class="string">"Post"</span>&gt;
-    &lt;id property=<span class="string">"id"</span> column=<span class="string">"post_id"</span>/&gt;
-    &lt;<span class="literal">result</span> property=<span class="string">"subject"</span> column=<span class="string">"post_subject"</span>/&gt;
-    &lt;<span class="literal">result</span> property=<span class="string">"body"</span> column=<span class="string">"post_body"</span>/&gt;
-  &lt;/collection&gt;
-&lt;/resultMap&gt;
-</code></pre></li>
-</ul>
-<p> 可以复用</p>
-<pre><code>&lt;resultMap id=<span class="string">"blogResult"</span> <span class="keyword">type</span>=<span class="string">"Blog"</span>&gt;
-  &lt;id property=<span class="string">"id"</span> column=<span class="string">"blog_id"</span> /&gt;
-  &lt;<span class="literal">result</span> property=<span class="string">"title"</span> column=<span class="string">"blog_title"</span>/&gt;
-  &lt;!-- 需要使用resultMap指定结果映射 --&gt;
-  &lt;collection property=<span class="string">"posts"</span> ofType=<span class="string">"Post"</span> resultMap=<span class="string">"blogPostResult"</span> columnPrefix=<span class="string">"post_"</span>/&gt;
-&lt;/resultMap&gt;
-
-&lt;resultMap id=<span class="string">"blogPostResult"</span> <span class="keyword">type</span>=<span class="string">"Post"</span>&gt;
-  &lt;id property=<span class="string">"id"</span> column=<span class="string">"id"</span>/&gt;
-  &lt;<span class="literal">result</span> property=<span class="string">"subject"</span> column=<span class="string">"subject"</span>/&gt;
-  &lt;<span class="literal">result</span> property=<span class="string">"body"</span> column=<span class="string">"body"</span>/&gt;
-&lt;/resultMap&gt;
-</code></pre>
-      
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
+          <p class="article-more-link">
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
+          </p>
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/21/mybatis的ResultMaps/" data-id="cii0atk3z000zg5swdb0c4d9e" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mybatis/">mybatis</a></li></ul>
-
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" class="article-share-link">Share</a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link">Comments</a>
+      <% } %>
+      <%- partial('post/tag') %>
     </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2015/10/22/retext编辑器/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          retext编辑器
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2015/10/21/mybatis-spring的使用/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">mybatis-spring的使用</div>
-    </a>
-  
-</nav>
-
-  
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
 </article>
 
+ <% if (!index && post.comments && config.duoshuo_shortname){ %>
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="<%= post.layout %>-<%= post.slug %>" data-title="<%= post.title %>" data-url="<%= page.permalink %>"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'<%= config.duoshuo_shortname %>'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  <% } %>
 </section>
         
           <aside id="sidebar">
@@ -280,7 +188,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2015 John Doe<br>
+      &copy; 2016 John Doe<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

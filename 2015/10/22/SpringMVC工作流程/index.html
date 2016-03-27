@@ -61,90 +61,63 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-SpringMVC工作流程" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="<%= post.layout %>-<%= post.slug %>" class="article article-type-<%= post.layout %>" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/10/22/SpringMVC工作流程/" class="article-date">
-  <time datetime="2015-10-22T13:05:21.000Z" itemprop="datePublished">2015-10-22</time>
-</a>
-    
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
   </div>
   <div class="article-inner">
-    
-    
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
       <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      SpringMVC工作流程
-    </h1>
-  
-
+        <%- partial('post/title', {class_name: 'article-title'}) %>
       </header>
-    
+    <% } %>
     <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>springMVC工作流程图:</p>
-</blockquote>
-<p><img src="http://7xire1.com1.z0.glb.clouddn.com/springmvc.png" alt="http://7xire1.com1.z0.glb.clouddn.com/springmvc.png"></p>
-<a id="more"></a>
-<blockquote>
-<p>配置DispatcherServlet（这是SpringMVC的入口）</p>
-</blockquote>
-<pre><code><span class="tag">&lt;<span class="title">servlet</span>&gt;</span>  
-    <span class="tag">&lt;<span class="title">servlet-name</span>&gt;</span>hello<span class="tag">&lt;/<span class="title">servlet-name</span>&gt;</span>  
-    <span class="tag">&lt;<span class="title">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="tag">&lt;/<span class="title">servlet-class</span>&gt;</span>  
-    <span class="tag">&lt;<span class="title">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="title">load-on-startup</span>&gt;</span>  
-<span class="tag">&lt;/<span class="title">servlet</span>&gt;</span>  
-<span class="tag">&lt;<span class="title">servlet-mapping</span>&gt;</span>  
-    <span class="tag">&lt;<span class="title">servlet-name</span>&gt;</span>hello<span class="tag">&lt;/<span class="title">servlet-name</span>&gt;</span>  
-    <span class="tag">&lt;<span class="title">url-pattern</span>&gt;</span>/<span class="tag">&lt;/<span class="title">url-pattern</span>&gt;</span>  
-<span class="tag">&lt;/<span class="title">servlet-mapping</span>&gt;</span>  
-</code></pre><p><em><strong>配置所有的请求都交由SpringleMVC框架处理</strong></em></p>
-<blockquote>
-<p>配置视图模板的解析</p>
-</blockquote>
-<pre><code><span class="comment">&lt;!-- ViewResolver --&gt;</span>  
-<span class="tag">&lt;<span class="title">bean</span> <span class="attribute">class</span>=<span class="value">"org.springframework.web.servlet.view.InternalResourceViewResolver"</span>&gt;</span>  
-    <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"viewClass"</span> <span class="attribute">value</span>=<span class="value">"org.springframework.web.servlet.view.JstlView"</span>/&gt;</span>  
-    <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"prefix"</span> <span class="attribute">value</span>=<span class="value">"/WEB-INF/jsp/"</span>/&gt;</span>  
-    <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"suffix"</span> <span class="attribute">value</span>=<span class="value">".jsp"</span>/&gt;</span>  
-<span class="tag">&lt;/<span class="title">bean</span>&gt;</span>  
-</code></pre>
-      
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
+          <p class="article-more-link">
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
+          </p>
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/22/SpringMVC工作流程/" data-id="cii0atk5m002gg5swzf2pwfrn" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringMVC/">SpringMVC</a></li></ul>
-
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" class="article-share-link">Share</a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link">Comments</a>
+      <% } %>
+      <%- partial('post/tag') %>
     </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2015/10/23/Servlet3上传文件/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Servlet3上传文件
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2015/10/22/Context的理解/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Context的理解</div>
-    </a>
-  
-</nav>
-
-  
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
 </article>
 
+ <% if (!index && post.comments && config.duoshuo_shortname){ %>
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="<%= post.layout %>-<%= post.slug %>" data-title="<%= post.title %>" data-url="<%= page.permalink %>"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'<%= config.duoshuo_shortname %>'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  <% } %>
 </section>
         
           <aside id="sidebar">
@@ -216,7 +189,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2015 John Doe<br>
+      &copy; 2016 John Doe<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

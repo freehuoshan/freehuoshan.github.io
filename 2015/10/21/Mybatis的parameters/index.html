@@ -60,90 +60,63 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Mybatis的parameters" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="<%= post.layout %>-<%= post.slug %>" class="article article-type-<%= post.layout %>" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/10/21/Mybatis的parameters/" class="article-date">
-  <time datetime="2015-10-21T13:24:47.000Z" itemprop="datePublished">2015-10-21</time>
-</a>
-    
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
   </div>
   <div class="article-inner">
-    
-    
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
       <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Mybatis的parameters
-    </h1>
-  
-
+        <%- partial('post/title', {class_name: 'article-title'}) %>
       </header>
-    
+    <% } %>
     <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="传值：">传值：</h2><h3 id="原生类型或简单数据类型（比如整型或字符串）">原生类型或简单数据类型（比如整型或字符串）</h3><a id="more"></a>
-<pre><code>&lt;select <span class="property">id</span>=<span class="string">"selectUsers"</span> resultType=<span class="string">"User"</span>&gt;
-  select <span class="property">id</span>, username, password
-  <span class="keyword">from</span> users
-  <span class="keyword">where</span> <span class="property">id</span> = <span class="comment">#{id}</span>
-&lt;/select&gt;
-</code></pre><p><em><strong>mybatis有内建的类型转换器</strong></em></p>
-<h3 id="复杂对象（自定义User对象）">复杂对象（自定义User对象）</h3><pre><code>&lt;insert <span class="property">id</span>=<span class="string">"insertUser"</span> parameterType=<span class="string">"User"</span>&gt;
-  insert <span class="keyword">into</span> users (<span class="property">id</span>, username, password)
-  values (<span class="comment">#{id}, #{username}, #{password})</span>
-&lt;/insert&gt;
-</code></pre><p><em><strong>会自动查找User对象的这几个属性，并进行匹配</strong></em></p>
-<p><em><strong>在某些时候需要指定类型(比如某个值为空)</strong></em></p>
-<ul>
-<li><p>使用mybatis已有的类型转换器:</p>
-<pre><code><span class="number">1.</span><span class="preprocessor">#{property,javaType=int,jdbcType=NUMERIC}</span>
-<span class="number">2.</span><span class="preprocessor">#{height,javaType=double,jdbcType=NUMERIC,numericScale=<span class="number">2</span>}(小数类型保留位数)</span>
-</code></pre></li>
-<li><p>使用自定义类型转换器：</p>
-<pre><code>#{<span class="ruby">age,javaType=int,jdbcType=<span class="constant">NUMERIC</span>,typeHandler=<span class="constant">MyTypeHandler</span>}</span>
-</code></pre></li>
-</ul>
-<p><em><strong>如果某个传入的值可能为空，那么一定要指定jdbcType</strong></em></p>
-<hr>
-<h2 id="字符串替换：">字符串替换：</h2><p>默认情况下，使用#{}向预处理语句中（？）传值。</p>
-<p>如果想要向sql语句中替换一个字符串，如表字段或表名，使用${}</p>
-<p><em><strong>为了防止sql注入，这个替换字符串不应该是被用户输入的字段，如果不可避免，则必须要校验</strong></em></p>
-
-      
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
+          <p class="article-more-link">
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
+          </p>
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/21/Mybatis的parameters/" data-id="cii0atk660031g5sw4k0r2i6v" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mybatis/">mybatis</a></li></ul>
-
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" class="article-share-link">Share</a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link">Comments</a>
+      <% } %>
+      <%- partial('post/tag') %>
     </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2015/10/21/mybatis-spring的使用/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          mybatis-spring的使用
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2015/10/21/Mybatis自动生成主键/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Mybatis自动生成主键</div>
-    </a>
-  
-</nav>
-
-  
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
 </article>
 
+ <% if (!index && post.comments && config.duoshuo_shortname){ %>
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="<%= post.layout %>-<%= post.slug %>" data-title="<%= post.title %>" data-url="<%= page.permalink %>"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'<%= config.duoshuo_shortname %>'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  <% } %>
 </section>
         
           <aside id="sidebar">
@@ -215,7 +188,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2015 John Doe<br>
+      &copy; 2016 John Doe<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

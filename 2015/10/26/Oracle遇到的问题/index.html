@@ -61,70 +61,63 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Oracle遇到的问题" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="<%= post.layout %>-<%= post.slug %>" class="article article-type-<%= post.layout %>" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/10/26/Oracle遇到的问题/" class="article-date">
-  <time datetime="2015-10-26T12:40:30.000Z" itemprop="datePublished">2015-10-26</time>
-</a>
-    
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
   </div>
   <div class="article-inner">
-    
-    
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
       <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Oracle遇到的问题
-    </h1>
-  
-
+        <%- partial('post/title', {class_name: 'article-title'}) %>
       </header>
-    
+    <% } %>
     <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="一-_ORA-27102:_out_of_memory">一.  ORA-27102: out of memory</h2><a id="more"></a>
-<p><img src="http://7xire1.com1.z0.glb.clouddn.com/QQ截图20151026130452.png" alt=""></p>
-<h3 id="在/etc/security/limits-conf最后添加，oracle_memlock">在/etc/security/limits.conf最后添加，oracle memlock</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">oracle soft nproc <span class="number">2047</span></span><br><span class="line">oracle hard nproc <span class="number">16384</span></span><br><span class="line">oracle soft nofile <span class="number">1024</span></span><br><span class="line">oracle hard nofile <span class="number">65536</span></span><br><span class="line">oracle soft memlock <span class="number">10485760</span></span><br><span class="line">oracle hard memlock <span class="number">10485760</span></span><br></pre></td></tr></table></figure>
-<h3 id="要是/etc/security/limits-conf生效，必须要要使相应的进程重新启动">要是/etc/security/limits.conf生效，必须要要使相应的进程重新启动</h3><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; <span class="built_in">shutdown</span> immediate </span><br><span class="line">SQL&gt; startup</span><br></pre></td></tr></table></figure>
-<h3 id="查看">查看</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ulimit</span> <span class="operator">-a</span></span><br></pre></td></tr></table></figure>
-<h3 id="参考:">参考:</h3><p><a href="http://www.databaseskill.com/1834993/" target="_blank" rel="external">http://www.databaseskill.com/1834993/</a></p>
-<p><a href="http://jingyan.baidu.com/article/86fae346870c503c49121a96.html" target="_blank" rel="external">http://jingyan.baidu.com/article/86fae346870c503c49121a96.html</a></p>
-
-      
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
+          <p class="article-more-link">
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
+          </p>
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/26/Oracle遇到的问题/" data-id="cii0atk60002ug5swfwuxmwin" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oracle/">oracle</a></li></ul>
-
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" class="article-share-link">Share</a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link">Comments</a>
+      <% } %>
+      <%- partial('post/tag') %>
     </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2015/10/26/Servlet3-1规范/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Servlet3.1规范
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2015/10/25/深入分析Web请求过程/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">深入分析Web请求过程</div>
-    </a>
-  
-</nav>
-
-  
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
 </article>
 
+ <% if (!index && post.comments && config.duoshuo_shortname){ %>
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="<%= post.layout %>-<%= post.slug %>" data-title="<%= post.title %>" data-url="<%= page.permalink %>"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'<%= config.duoshuo_shortname %>'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  <% } %>
 </section>
         
           <aside id="sidebar">
@@ -196,7 +189,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2015 John Doe<br>
+      &copy; 2016 John Doe<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

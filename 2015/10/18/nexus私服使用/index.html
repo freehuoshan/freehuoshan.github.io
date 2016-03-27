@@ -63,171 +63,63 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-nexus私服使用" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="<%= post.layout %>-<%= post.slug %>" class="article article-type-<%= post.layout %>" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/10/18/nexus私服使用/" class="article-date">
-  <time datetime="2015-10-18T04:03:20.000Z" itemprop="datePublished">2015-10-18</time>
-</a>
-    
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
   </div>
   <div class="article-inner">
-    
-    
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
       <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      nexus私服使用
-    </h1>
-  
-
+        <%- partial('post/title', {class_name: 'article-title'}) %>
       </header>
-    
+    <% } %>
     <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="下载">下载</h3><p>在<a href="http://www.sonatype.org/" target="_blank" rel="external">http://www.sonatype.org/</a></p>
-<a id="more"></a>
-<p><img src="http://7xire1.com1.z0.glb.clouddn.com/2015-10-18%2012%3A25%3A24屏幕截图.png" alt=""></p>
-<p>选择download第一项下载.tar.gz或.zip压缩包</p>
-<hr>
-<h3 id="启动">启动</h3><p>在本地解压到nexus,进入到nexus/nexus-2.11.4-01/bin/运行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">huoshan-ThinkPad-Edge-E431<span class="comment"># ./nexus start</span></span><br><span class="line">****************************************</span><br><span class="line">WARNING - NOT RECOMMENDED TO RUN AS ROOT</span><br><span class="line">****************************************</span><br><span class="line">If you insist running as root, <span class="keyword">then</span> <span class="built_in">set</span> the environment variable RUN_AS_USER=root before</span><br><span class="line">running this script.</span><br><span class="line">huoshan-ThinkPad-Edge-E431<span class="comment"># ls</span></span><br></pre></td></tr></table></figure>
-<p>没有正常启动,然后编辑nexus,设置RUAN_AS_ROOT=root或其他linux用户再次启动正常.正常启动在8081端口,修改端口可在nexus/nexus-2.11.4-01/conf/nexus.properties文件中修改端口.</p>
-<p>访问:登录,admin默认密码admin123</p>
-<p><img src="http://7xire1.com1.z0.glb.clouddn.com/2015-10-18%2013%3A35%3A03屏幕截图.png" alt=""></p>
-<p><img src="http://7xire1.com1.z0.glb.clouddn.com/2015-10-18%2013%3A37%3A12屏幕截图.png" alt=""></p>
-<hr>
-<h3 id="仓库">仓库</h3><p>central代理仓库:代理maven中央仓库是代理仓库,策略为release,会下载中央仓库release版本</p>
-<p>release宿主仓库:部署组织内部发布的release版本</p>
-<p>snapshort宿主仓库:部署组织内部发布的snapshort版本</p>
-<p>apacheSnapshort代理仓库:代理maven中央仓库snapshort版本</p>
-<p>codehaussnapshort代理仓库:代理codehaus仓库snapshort版本</p>
-<p>type:group(仓库组),proxy(代理远程仓库),host(组织内部发布)</p>
-<hr>
-<h3 id="搜索">搜索</h3><p>为nexus设置搜索:点击central,在下方configration中配置download remoteindex为true.下载远程索引,点击admanistartion/Scheduled Tasks可看到下载状态,下载完成即可搜索.</p>
-<hr>
-<h3 id="使用私服">使用私服</h3><ul>
-<li>pom配置</li>
-</ul>
-<pre><code><span class="tag">&lt;<span class="title">repositories</span>&gt;</span>
-      <span class="tag">&lt;<span class="title">repository</span>&gt;</span>
-          <span class="tag">&lt;<span class="title">id</span>&gt;</span>nexus<span class="tag">&lt;/<span class="title">id</span>&gt;</span>
-          <span class="tag">&lt;<span class="title">name</span>&gt;</span>Nexus<span class="tag">&lt;/<span class="title">name</span>&gt;</span>
-          <span class="tag">&lt;<span class="title">url</span>&gt;</span>http://localhost:8081/nexus/content/groups/public/<span class="tag">&lt;/<span class="title">url</span>&gt;</span>
-          <span class="tag">&lt;<span class="title">releases</span>&gt;</span><span class="tag">&lt;<span class="title">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="title">enabled</span>&gt;</span><span class="tag">&lt;/<span class="title">releases</span>&gt;</span>
-          <span class="tag">&lt;<span class="title">snapshots</span>&gt;</span><span class="tag">&lt;<span class="title">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="title">enabled</span>&gt;</span><span class="tag">&lt;/<span class="title">snapshots</span>&gt;</span>
-      <span class="tag">&lt;/<span class="title">repository</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">repositories</span>&gt;</span>
-<span class="tag">&lt;<span class="title">pluginRepositories</span>&gt;</span>
-      <span class="tag">&lt;<span class="title">pluginRepository</span>&gt;</span>
-          <span class="tag">&lt;<span class="title">id</span>&gt;</span>nexus<span class="tag">&lt;/<span class="title">id</span>&gt;</span>
-          <span class="tag">&lt;<span class="title">name</span>&gt;</span>Nexus<span class="tag">&lt;/<span class="title">name</span>&gt;</span>
-          <span class="tag">&lt;<span class="title">url</span>&gt;</span>http://localhost:8081/nexus/content/groups/public/<span class="tag">&lt;/<span class="title">url</span>&gt;</span>
-          <span class="tag">&lt;<span class="title">releases</span>&gt;</span><span class="tag">&lt;<span class="title">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="title">enabled</span>&gt;</span><span class="tag">&lt;/<span class="title">releases</span>&gt;</span>
-          <span class="tag">&lt;<span class="title">snapshots</span>&gt;</span><span class="tag">&lt;<span class="title">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="title">enabled</span>&gt;</span><span class="tag">&lt;/<span class="title">snapshots</span>&gt;</span>
-      <span class="tag">&lt;/<span class="title">pluginRepository</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">pluginRepositories</span>&gt;</span>
-</code></pre><ul>
-<li><p>settings配置</p>
-<pre><code><span class="tag">&lt;<span class="title">profiles</span>&gt;</span>
-      <span class="tag">&lt;<span class="title">profile</span>&gt;</span>
-          <span class="tag">&lt;<span class="title">repositories</span>&gt;</span>
-              <span class="tag">&lt;<span class="title">repository</span>&gt;</span>
-                  <span class="tag">&lt;<span class="title">id</span>&gt;</span>nexus<span class="tag">&lt;/<span class="title">id</span>&gt;</span>
-                  <span class="tag">&lt;<span class="title">name</span>&gt;</span>Nexus<span class="tag">&lt;/<span class="title">name</span>&gt;</span>
-                  <span class="tag">&lt;<span class="title">url</span>&gt;</span>http://localhost:8081/nexus/content/groups/public/<span class="tag">&lt;/<span class="title">url</span>&gt;</span>
-                  <span class="tag">&lt;<span class="title">releases</span>&gt;</span><span class="tag">&lt;<span class="title">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="title">enabled</span>&gt;</span><span class="tag">&lt;/<span class="title">releases</span>&gt;</span>
-                  <span class="tag">&lt;<span class="title">snapshots</span>&gt;</span><span class="tag">&lt;<span class="title">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="title">enabled</span>&gt;</span><span class="tag">&lt;/<span class="title">snapshots</span>&gt;</span>
-              <span class="tag">&lt;/<span class="title">repository</span>&gt;</span>
-          <span class="tag">&lt;/<span class="title">repositories</span>&gt;</span>
-          <span class="tag">&lt;<span class="title">pluginRepositories</span>&gt;</span>
-              <span class="tag">&lt;<span class="title">pluginRepository</span>&gt;</span>
-                  <span class="tag">&lt;<span class="title">id</span>&gt;</span>nexus<span class="tag">&lt;/<span class="title">id</span>&gt;</span>
-                  <span class="tag">&lt;<span class="title">name</span>&gt;</span>Nexus<span class="tag">&lt;/<span class="title">name</span>&gt;</span>
-                  <span class="tag">&lt;<span class="title">url</span>&gt;</span>http://localhost:8081/nexus/content/groups/public/<span class="tag">&lt;/<span class="title">url</span>&gt;</span>
-                  <span class="tag">&lt;<span class="title">releases</span>&gt;</span><span class="tag">&lt;<span class="title">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="title">enabled</span>&gt;</span><span class="tag">&lt;/<span class="title">releases</span>&gt;</span>
-                  <span class="tag">&lt;<span class="title">snapshots</span>&gt;</span><span class="tag">&lt;<span class="title">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="title">enabled</span>&gt;</span><span class="tag">&lt;/<span class="title">snapshots</span>&gt;</span>
-              <span class="tag">&lt;/<span class="title">pluginRepository</span>&gt;</span>
-          <span class="tag">&lt;/<span class="title">pluginRepositories</span>&gt;</span>
-      <span class="tag">&lt;/<span class="title">profile</span>&gt;</span>
-  <span class="tag">&lt;/<span class="title">profiles</span>&gt;</span>
-  <span class="tag">&lt;<span class="title">activeProfiles</span>&gt;</span>
-      <span class="tag">&lt;<span class="title">activeProfile</span>&gt;</span>nexus<span class="tag">&lt;/<span class="title">activeProfile</span>&gt;</span>
-  <span class="tag">&lt;/<span class="title">activeProfiles</span>&gt;</span>
-</code></pre><ul>
-<li>镜像</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>   <em><strong>配置所有下载请求转到私服镜像</strong></em></p>
-</blockquote>
-<pre><code><span class="variable">&lt;mirrors&gt;</span>
-      <span class="variable">&lt;mirror&gt;</span>
-          <span class="variable">&lt;id&gt;</span>nexus<span class="variable">&lt;/id&gt;</span>
-          <span class="variable">&lt;mirrorOf&gt;</span><span class="keyword">*</span><span class="variable">&lt;/mirrorOf&gt;</span>
-          <span class="variable">&lt;url&gt;</span>http://localhost:8081/nexus/content/groups/public/<span class="variable">&lt;/url&gt;</span>
-      <span class="variable">&lt;/mirror&gt;</span>
-  <span class="variable">&lt;/mirrors&gt;</span>
-  <span class="variable">&lt;profiles&gt;</span>
-       <span class="variable">&lt;profile&gt;</span>
-           <span class="variable">&lt;id&gt;</span>nexus<span class="variable">&lt;/id&gt;</span>
-           <span class="variable">&lt;repositories&gt;</span>
-               <span class="variable">&lt;repository&gt;</span>
-                   <span class="variable">&lt;id&gt;</span>central<span class="variable">&lt;/id&gt;</span>
-                   <span class="variable">&lt;url&gt;</span>http://central<span class="variable">&lt;/url&gt;</span>
-                   <span class="variable">&lt;releases&gt;</span><span class="variable">&lt;enabled&gt;</span>true<span class="variable">&lt;/enabled&gt;</span><span class="variable">&lt;/releases&gt;</span>
-                   <span class="variable">&lt;snapshots&gt;</span><span class="variable">&lt;enabled&gt;</span>true<span class="variable">&lt;/enabled&gt;</span><span class="variable">&lt;/snapshots&gt;</span>
-               <span class="variable">&lt;/repository&gt;</span>
-           <span class="variable">&lt;/repositories&gt;</span>
-           <span class="variable">&lt;pluginRepositories&gt;</span>
-               <span class="variable">&lt;pluginRepository&gt;</span>
-                   <span class="variable">&lt;id&gt;</span>central<span class="variable">&lt;/id&gt;</span>
-                   <span class="variable">&lt;url&gt;</span>http://central<span class="variable">&lt;/url&gt;</span>
-                   <span class="variable">&lt;releases&gt;</span><span class="variable">&lt;enabled&gt;</span>true<span class="variable">&lt;/enabled&gt;</span><span class="variable">&lt;/releases&gt;</span>
-                   <span class="variable">&lt;snapshots&gt;</span><span class="variable">&lt;enabled&gt;</span>true<span class="variable">&lt;/enabled&gt;</span><span class="variable">&lt;/snapshots&gt;</span>
-               <span class="variable">&lt;/pluginRepository&gt;</span>
-           <span class="variable">&lt;/pluginRepositories&gt;</span>
-       <span class="variable">&lt;/profile&gt;</span>
-   <span class="variable">&lt;/profiles&gt;</span>
-   <span class="variable">&lt;activeProfiles&gt;</span>
-       <span class="variable">&lt;activeProfile&gt;</span>nexus<span class="variable">&lt;/activeProfile&gt;</span>
-   <span class="variable">&lt;/activeProfiles&gt;</span>
-</code></pre>
-      
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
+          <p class="article-more-link">
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
+          </p>
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/18/nexus私服使用/" data-id="cii0atk3w000xg5swneq00nzk" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/maven/">maven</a></li></ul>
-
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" class="article-share-link">Share</a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link">Comments</a>
+      <% } %>
+      <%- partial('post/tag') %>
     </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2015/10/18/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Hello World
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2015/10/18/maven的聚合与继承/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">maven的聚合于继承</div>
-    </a>
-  
-</nav>
-
-  
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
 </article>
 
+ <% if (!index && post.comments && config.duoshuo_shortname){ %>
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="<%= post.layout %>-<%= post.slug %>" data-title="<%= post.title %>" data-url="<%= page.permalink %>"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'<%= config.duoshuo_shortname %>'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  <% } %>
 </section>
         
           <aside id="sidebar">
@@ -299,7 +191,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2015 John Doe<br>
+      &copy; 2016 John Doe<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

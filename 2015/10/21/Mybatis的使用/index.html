@@ -72,117 +72,63 @@ Maven依赖:&amp;lt;dependency&amp;gt;
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Mybatis的使用" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="<%= post.layout %>-<%= post.slug %>" class="article article-type-<%= post.layout %>" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/10/21/Mybatis的使用/" class="article-date">
-  <time datetime="2015-10-21T13:06:20.000Z" itemprop="datePublished">2015-10-21</time>
-</a>
-    
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
   </div>
   <div class="article-inner">
-    
-    
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
       <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Mybatis的使用
-    </h1>
-  
-
+        <%- partial('post/title', {class_name: 'article-title'}) %>
       </header>
-    
+    <% } %>
     <div class="article-entry" itemprop="articleBody">
-      
-        <p>mybatis文档:<a href="http://mybatis.github.io/mybatis-3/zh/index.html" target="_blank" rel="external">http://mybatis.github.io/mybatis-3/zh/index.html</a></p>
-<h2 id="Maven依赖:">Maven依赖:</h2><pre><code><span class="tag">&lt;<span class="title">dependency</span>&gt;</span>
-  <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.mybatis<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span>
-  <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>mybatis<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span>
-  <span class="tag">&lt;<span class="title">version</span>&gt;</span>x.x.x<span class="tag">&lt;/<span class="title">version</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span>
-</code></pre><a id="more"></a>
-<h2 id="Mybatis配置文件（从xml构建SessionFactory）">Mybatis配置文件（从xml构建SessionFactory）</h2><pre><code><span class="pi">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
-<span class="doctype">&lt;!DOCTYPE configuration
-  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-config.dtd"&gt;</span>
-<span class="tag">&lt;<span class="title">configuration</span>&gt;</span>
-  <span class="tag">&lt;<span class="title">environments</span> <span class="attribute">default</span>=<span class="value">"development"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">environment</span> <span class="attribute">id</span>=<span class="value">"development"</span>&gt;</span>
-      <span class="tag">&lt;<span class="title">transactionManager</span> <span class="attribute">type</span>=<span class="value">"JDBC"</span>/&gt;</span>
-      <span class="tag">&lt;<span class="title">dataSource</span> <span class="attribute">type</span>=<span class="value">"POOLED"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"driver"</span> <span class="attribute">value</span>=<span class="value">"${driver}"</span>/&gt;</span>
-        <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"url"</span> <span class="attribute">value</span>=<span class="value">"${url}"</span>/&gt;</span>
-        <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"username"</span> <span class="attribute">value</span>=<span class="value">"${username}"</span>/&gt;</span>
-        <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"password"</span> <span class="attribute">value</span>=<span class="value">"${password}"</span>/&gt;</span>
-      <span class="tag">&lt;/<span class="title">dataSource</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">environment</span>&gt;</span>
-  <span class="tag">&lt;/<span class="title">environments</span>&gt;</span>
-  <span class="tag">&lt;<span class="title">mappers</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">mapper</span> <span class="attribute">resource</span>=<span class="value">"org/mybatis/example/BlogMapper.xml"</span>/&gt;</span>
-  <span class="tag">&lt;/<span class="title">mappers</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">configuration</span>&gt;</span>
-</code></pre><h2 id="Mybatis映射文件（采用xml方式）">Mybatis映射文件（采用xml方式）</h2><pre><code><span class="pi">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
-<span class="doctype">&lt;!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"&gt;</span>
-<span class="tag">&lt;<span class="title">mapper</span> <span class="attribute">namespace</span>=<span class="value">"org.mybatis.example.BlogMapper"</span>&gt;</span>
-  <span class="tag">&lt;<span class="title">select</span> <span class="attribute">id</span>=<span class="value">"selectBlog"</span> <span class="attribute">resultType</span>=<span class="value">"Blog"</span>&gt;</span>
-    select * from Blog where id = #{id}
-  <span class="tag">&lt;/<span class="title">select</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">mapper</span>&gt;</span>
-</code></pre><h2 id="Mybatis映射器类(采用xml文件配置)">Mybatis映射器类(采用xml文件配置)</h2><pre><code><span class="keyword">package</span> org.mybatis.example;
-<span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BlogMapper</span> </span>{
-  <span class="annotation">@Select</span>(<span class="string">"SELECT * FROM blog WHERE id = #{id}"</span>)
-  <span class="function">Blog <span class="title">selectBlog</span><span class="params">(<span class="keyword">int</span> id)</span></span>;
-}
-</code></pre><h2 id="Mybatis的使用">Mybatis的使用</h2><pre><code><span class="keyword">String </span>resource = <span class="string">"org/mybatis/example/mybatis-config.xml"</span><span class="comment">;</span>
-<span class="label">InputStream</span> inputStream = Resources.getResourceAsStream(resource)<span class="comment">;</span>
-<span class="label">SqlSessionFactory</span> sqlSessionFactory = new SqlSessionFactoryBuilder().<span class="keyword">build(inputStream);
-</span><span class="label">SqlSession</span> session = sqlSessionFactory.openSession()<span class="comment">;</span>
-<span class="label">try</span> {
-//这种方式可以不使用映射器类
- // <span class="keyword">Blog </span><span class="keyword">blog </span>= (<span class="keyword">Blog) </span>session.<span class="keyword">selectOne("org.mybatis.example.BlogMapper.selectBlog", </span><span class="number">101</span>)<span class="comment">;</span>
-//这种方式必须使用映射器类，相当于抽象出一层接口
-    <span class="keyword">BlogMapper </span>mapper = session.getMapper(<span class="keyword">BlogMapper.class);
-</span>      <span class="keyword">Blog </span><span class="keyword">blog </span>= mapper.<span class="keyword">selectBlog(101);
-</span>} finally {
-  session.close()<span class="comment">;</span>
-}
-</code></pre>
-      
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
+          <p class="article-more-link">
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
+          </p>
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/21/Mybatis的使用/" data-id="cii0atk64002zg5swuedw5a6u" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mybatis/">mybatis</a></li></ul>
-
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" class="article-share-link">Share</a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link">Comments</a>
+      <% } %>
+      <%- partial('post/tag') %>
     </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2015/10/21/spring-PropertyPlaceholderConfigurer常量文件/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          spring_PropertyPlaceholderConfigurer常量文件
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2015/10/19/spring常用jar包依赖关系/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">spring常用jar包依赖关系</div>
-    </a>
-  
-</nav>
-
-  
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
 </article>
 
+ <% if (!index && post.comments && config.duoshuo_shortname){ %>
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="<%= post.layout %>-<%= post.slug %>" data-title="<%= post.title %>" data-url="<%= page.permalink %>"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'<%= config.duoshuo_shortname %>'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  <% } %>
 </section>
         
           <aside id="sidebar">
@@ -254,7 +200,7 @@ Maven依赖:&amp;lt;dependency&amp;gt;
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2015 John Doe<br>
+      &copy; 2016 John Doe<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

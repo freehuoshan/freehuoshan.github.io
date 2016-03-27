@@ -60,200 +60,63 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-SpringMVC源码学习-base" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="<%= post.layout %>-<%= post.slug %>" class="article article-type-<%= post.layout %>" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/11/01/SpringMVC源码学习-base/" class="article-date">
-  <time datetime="2015-11-01T13:22:41.000Z" itemprop="datePublished">2015-11-01</time>
-</a>
-    
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
   </div>
   <div class="article-inner">
-    
-    
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
       <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      SpringMVC源码学习(base)
-    </h1>
-  
-
+        <%- partial('post/title', {class_name: 'article-title'}) %>
       </header>
-    
+    <% } %>
     <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>在web.xml配置如下拦截所有请求</p>
-</blockquote>
-<a id="more"></a>
-<pre><code><span class="comment">&lt;!-- Processes application requests --&gt;</span>
-<span class="tag">&lt;<span class="title">servlet</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">servlet-name</span>&gt;</span>appServlet<span class="tag">&lt;/<span class="title">servlet-name</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="tag">&lt;/<span class="title">servlet-class</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">init-param</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="title">param-name</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">param-value</span>&gt;</span>/WEB-INF/spring/appServlet/servlet-context.xml<span class="tag">&lt;/<span class="title">param-value</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">init-param</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="title">load-on-startup</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">async-supported</span>&gt;</span>true<span class="tag">&lt;/<span class="title">async-supported</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">servlet</span>&gt;</span>
-
-<span class="tag">&lt;<span class="title">servlet-mapping</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">servlet-name</span>&gt;</span>appServlet<span class="tag">&lt;/<span class="title">servlet-name</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">url-pattern</span>&gt;</span>/<span class="tag">&lt;/<span class="title">url-pattern</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">servlet-mapping</span>&gt;</span>
-</code></pre><blockquote>
-<p>在项目部署到服务器中时，会初始化一些已经实例化的Servlet，调用他们的init，像GenericServlet中</p>
-</blockquote>
-<pre><code><span class="annotation">@Override</span>
-<span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">(ServletConfig config)</span> <span class="keyword">throws</span> ServletException </span>{
-    <span class="keyword">this</span>.config = config;
-    <span class="comment">//调用init方法(子类)，利用了java继承和动态</span>
-    <span class="keyword">this</span>.init();
-}
-</code></pre><blockquote>
-<p>由请求发生时，会调用的service方法.HTTPSERVLET在service这里也利用了继承动态。HttpServlet中service方法</p>
-</blockquote>
-<pre><code>protected <span class="type">void</span> service(<span class="type">HttpServletRequest</span> req, <span class="type">HttpServletResponse</span> resp)
-throws <span class="type">ServletException</span>, <span class="type">IOException</span> {
-
-<span class="type">String</span> <span class="keyword">method</span> = req.getMethod();
-
-<span class="keyword">if</span> (<span class="keyword">method</span>.equals(<span class="type">METHOD_GET</span>)) {
-    long lastModified = getLastModified(req);
-    <span class="keyword">if</span> (lastModified == -<span class="number">1</span>) {
-        // servlet doesn't support <span class="keyword">if</span>-modified-since, no reason
-        // to go through further expensive logic
-        //利用了java的继承动态（如果子类由重写，可以扩展）
-        doGet(req, resp);
-    } <span class="keyword">else</span> {
-        long ifModifiedSince = req.getDateHeader(<span class="type">HEADER_IFMODSINCE</span>);
-        <span class="keyword">if</span> (ifModifiedSince &lt; (lastModified / <span class="number">1000</span> * <span class="number">1000</span>)) {
-            // <span class="type">If</span> the servlet <span class="keyword">mod</span> time <span class="keyword">is</span> later, call doGet()
-            // <span class="type">Round</span> down to the nearest second <span class="keyword">for</span> a proper compare
-            // A ifModifiedSince <span class="keyword">of</span> -<span class="number">1</span> will always be less
-            maybeSetLastModified(resp, lastModified);
-            doGet(req, resp);
-        } <span class="keyword">else</span> {
-            resp.setStatus(<span class="type">HttpServletResponse</span>.<span class="type">SC_NOT_MODIFIED</span>);
-        }
-    }
-</code></pre><blockquote>
-<p>最终真正去处理转发请求的是</p>
-</blockquote>
-<pre><code> <span class="keyword">protected</span> void doDispatch(HttpServletRequest request, HttpServletResponse response) throws <span class="keyword">Exception</span> {
-        HttpServletRequest processedRequest = request;
-        HandlerExecutionChain mappedHandler = <span class="keyword">null</span>;
-        <span class="keyword">boolean</span> multipartRequestParsed = <span class="keyword">false</span>;
-
-    WebAsyncManager asyncManager = WebAsyncUtils.getAsyncManager(request);
-
-    <span class="keyword">try</span> {
-        ModelAndView mv = <span class="keyword">null</span>;
-        <span class="keyword">Exception</span> dispatchException = <span class="keyword">null</span>;
-
-        <span class="keyword">try</span> {
-            processedRequest = checkMultipart(request);
-            multipartRequestParsed = (processedRequest != request);
-
-            <span class="comment">// Determine handler for the current request.</span>
-            mappedHandler = getHandler(processedRequest);
-            <span class="keyword">if</span> (mappedHandler == <span class="keyword">null</span> || mappedHandler.getHandler() == <span class="keyword">null</span>) {
-                noHandlerFound(processedRequest, response);
-                <span class="keyword">return</span>;
-            }
-
-            <span class="comment">// Determine handler adapter for the current request.</span>
-            HandlerAdapter ha = getHandlerAdapter(mappedHandler.getHandler());
-
-            <span class="comment">// Process last-modified header, if supported by the handler.</span>
-            String method = request.getMethod();
-            <span class="keyword">boolean</span> isGet = <span class="string">"GET"</span>.equals(method);
-            <span class="keyword">if</span> (isGet || <span class="string">"HEAD"</span>.equals(method)) {
-                <span class="keyword">long</span> lastModified = ha.getLastModified(request, mappedHandler.getHandler());
-                <span class="keyword">if</span> (logger.isDebugEnabled()) {
-                    logger.debug(<span class="string">"Last-Modified value for ["</span> + getRequestUri(request) + <span class="string">"] is: "</span> + lastModified);
-                }
-                <span class="keyword">if</span> (<span class="keyword">new</span> ServletWebRequest(request, response).checkNotModified(lastModified) &amp;&amp; isGet) {
-                    <span class="keyword">return</span>;
-                }
-            }
-
-            <span class="keyword">if</span> (!mappedHandler.applyPreHandle(processedRequest, response)) {
-                <span class="keyword">return</span>;
-            }
-
-            <span class="comment">// Actually invoke the handler.</span>
-            mv = ha.handle(processedRequest, response, mappedHandler.getHandler());
-
-            <span class="keyword">if</span> (asyncManager.isConcurrentHandlingStarted()) {
-                <span class="keyword">return</span>;
-            }
-
-            applyDefaultViewName(request, mv);
-            mappedHandler.applyPostHandle(processedRequest, response, mv);
-        }
-        <span class="keyword">catch</span> (<span class="keyword">Exception</span> ex) {
-            dispatchException = ex;
-        }
-        processDispatchResult(processedRequest, response, mappedHandler, mv, dispatchException);
-    }
-    <span class="keyword">catch</span> (<span class="keyword">Exception</span> ex) {
-        triggerAfterCompletion(processedRequest, response, mappedHandler, ex);
-    }
-    <span class="keyword">catch</span> (Error err) {
-        triggerAfterCompletionWithError(processedRequest, response, mappedHandler, err);
-    }
-    <span class="keyword">finally</span> {
-        <span class="keyword">if</span> (asyncManager.isConcurrentHandlingStarted()) {
-            <span class="comment">// Instead of postHandle and afterCompletion</span>
-            <span class="keyword">if</span> (mappedHandler != <span class="keyword">null</span>) {
-                mappedHandler.applyAfterConcurrentHandlingStarted(processedRequest, response);
-            }
-        }
-        <span class="keyword">else</span> {
-            <span class="comment">// Clean up any resources used by a multipart request.</span>
-            <span class="keyword">if</span> (multipartRequestParsed) {
-                cleanupMultipart(processedRequest);
-            }
-        }
-    }
-}
-</code></pre>
-      
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
+          <p class="article-more-link">
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
+          </p>
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/11/01/SpringMVC源码学习-base/" data-id="cii0atk5l002dg5swpmi73e2s" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringMVC/">SpringMVC</a></li></ul>
-
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" class="article-share-link">Share</a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link">Comments</a>
+      <% } %>
+      <%- partial('post/tag') %>
     </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2015/11/03/Java-8十个lambda表达式案例/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Java 8十个lambda表达式案例
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2015/10/31/Java多态性详解——父类引用子类对象/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Java多态性详解——父类引用子类对象</div>
-    </a>
-  
-</nav>
-
-  
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
 </article>
 
+ <% if (!index && post.comments && config.duoshuo_shortname){ %>
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="<%= post.layout %>-<%= post.slug %>" data-title="<%= post.title %>" data-url="<%= page.permalink %>"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'<%= config.duoshuo_shortname %>'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  <% } %>
 </section>
         
           <aside id="sidebar">
@@ -325,7 +188,7 @@ throws <span class="type">ServletException</span>, <span class="type">IOExceptio
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2015 John Doe<br>
+      &copy; 2016 John Doe<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

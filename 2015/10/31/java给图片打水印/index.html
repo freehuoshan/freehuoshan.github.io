@@ -61,180 +61,63 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-java给图片打水印" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="<%= post.layout %>-<%= post.slug %>" class="article article-type-<%= post.layout %>" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/10/31/java给图片打水印/" class="article-date">
-  <time datetime="2015-10-31T01:13:38.000Z" itemprop="datePublished">2015-10-31</time>
-</a>
-    
+    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    <%- partial('post/category') %>
   </div>
   <div class="article-inner">
-    
-    
+    <%- partial('post/gallery') %>
+    <% if (post.link || post.title){ %>
       <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      java给图片打水印
-    </h1>
-  
-
+        <%- partial('post/title', {class_name: 'article-title'}) %>
       </header>
-    
+    <% } %>
     <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="code:">code:</h2><a id="more"></a>
-<pre><code>package imageShuiying;   
-
-<span class="keyword">import</span> java.awt.AlphaComposite;
-<span class="keyword">import</span> java.awt.BasicStroke;
-<span class="keyword">import</span> java.awt.Color;
-<span class="keyword">import</span> java.awt.Graphics2D;
-<span class="keyword">import</span> java.awt.Image;
-<span class="keyword">import</span> java.awt.RenderingHints;
-<span class="keyword">import</span> java.awt.geom.Line2D;
-<span class="keyword">import</span> java.awt.image.BufferedImage;
-<span class="keyword">import</span> java.io.File;
-<span class="keyword">import</span> java.io.FileOutputStream;
-<span class="keyword">import</span> java.io.OutputStream;
-<span class="keyword">import</span> java.util.Date;
-<span class="keyword">import</span> java.util.Random;
-
-<span class="keyword">import</span> javax.imageio.ImageIO;
-<span class="keyword">import</span> javax.swing.ImageIcon;
-
-<span class="comment">/**
- *  给图片打水印
- * @author huoshan
- *
- */</span>
-public <span class="class"><span class="keyword">class</span> <span class="title">ImageMarkLogoByIcon</span> </span>{   
-
-    <span class="comment">/**  
-     * @param args  
-     */</span>  
-    public static <span class="keyword">void</span> main(<span class="built_in">String</span>[] args) {   
-        <span class="built_in">String</span> srcImgPath = <span class="string">"/home/huoshan/eclipseworkspace/imageShuiying/src/20091026094930-1870243638.jpg"</span>;   
-        <span class="built_in">String</span> iconPath = <span class="string">"/home/huoshan/eclipseworkspace/imageShuiying/src/icon.png"</span>;   
-        <span class="built_in">String</span> targerPath = <span class="string">"/home/huoshan/eclipseworkspace/imageShuiying/src/"</span>+<span class="keyword">new</span> <span class="built_in">Date</span>().toString()+<span class="string">".jpg"</span> ; 
-         <span class="comment">// 给图片添加水印   </span>
-        ImageMarkLogoByIcon.markImageByIcon(iconPath, srcImgPath, targerPath , <span class="number">0</span>);  
-    }   
-    <span class="comment">/**  
-     * 给图片添加水印  
-     * @param iconPath 水印图片路径  
-     * @param srcImgPath 源图片路径  
-     * @param targerPath 目标图片路径  
-     */</span>  
-    public static <span class="keyword">void</span> markImageByIcon(<span class="built_in">String</span> iconPath, <span class="built_in">String</span> srcImgPath,   
-            <span class="built_in">String</span> targerPath) {   
-        markImageByIcon(iconPath, srcImgPath, targerPath, <span class="literal">null</span>) ; 
-    }   
-    <span class="comment">/**  
-     * 给图片添加水印、可设置水印图片旋转角度  
-     * @param iconPath 水印图片路径  
-     * @param srcImgPath 源图片路径  
-     * @param targerPath 目标图片路径  
-     * @param degree 水印图片旋转角度
-     */</span>  
-    public static <span class="keyword">void</span> markImageByIcon(<span class="built_in">String</span> iconPath, <span class="built_in">String</span> srcImgPath,   
-            <span class="built_in">String</span> targerPath, Integer degree) {   
-        OutputStream os = <span class="literal">null</span>;   
-        <span class="keyword">try</span> {   
-            Image srcImg = ImageIO.read(<span class="keyword">new</span> File(srcImgPath)); 
-            BufferedImage buffImg = <span class="keyword">new</span> BufferedImage(srcImg.getWidth(<span class="literal">null</span>),   
-                    srcImg.getHeight(<span class="literal">null</span>), BufferedImage.TYPE_INT_RGB); 
-            <span class="comment">// 得到画笔对象   </span>
-            <span class="comment">// Graphics g= buffImg.getGraphics();   </span>
-            Graphics2D g = buffImg.createGraphics();   
-
-            <span class="comment">// 设置对线段的锯齿状边缘处理   </span>
-            g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,   
-                    RenderingHints.VALUE_INTERPOLATION_BILINEAR);   
-
-            g.drawImage(srcImg.getScaledInstance(srcImg.getWidth(<span class="literal">null</span>), srcImg   
-                    .getHeight(<span class="literal">null</span>), Image.SCALE_SMOOTH), <span class="number">0</span>, <span class="number">0</span>, <span class="literal">null</span>);   
-
-            <span class="keyword">if</span> (<span class="literal">null</span> != degree) {   
-                <span class="comment">// 设置水印旋转   </span>
-                g.rotate(<span class="built_in">Math</span>.toRadians(degree),   
-                        (double) buffImg.getWidth() / <span class="number">2</span>, (double) buffImg   
-                                .getHeight() / <span class="number">2</span>);   
-            }   
-            <span class="comment">// 水印图象的路径 水印一般为gif或者png的，这样可设置透明度  </span>
-            ImageIcon imgIcon = <span class="keyword">new</span> ImageIcon(iconPath);   
-            <span class="comment">// 得到Image对象。   </span>
-            Image img = imgIcon.getImage();   
-            float alpha = <span class="number">0.9</span>f; <span class="comment">// 透明度   </span>
-            g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP,   
-                    alpha));   
-            <span class="comment">// 表示水印图片的位置   </span>
-            g.drawImage(img, <span class="number">300</span>, <span class="number">300</span>, <span class="literal">null</span>);
-
-            float thick=<span class="number">3.0</span>f;
-
-            g.setStroke(<span class="keyword">new</span> BasicStroke(thick, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND));
-            g.setColor(Color.black);
-            g.drawLine(<span class="number">300</span>, <span class="number">300</span>, <span class="number">200</span>, <span class="number">100</span>);
-
-            g.drawImage(img,<span class="number">200</span>, <span class="number">100</span>, <span class="literal">null</span>);
-
-            g.drawLine(<span class="number">200</span>, <span class="number">100</span>, <span class="number">0</span>, <span class="number">0</span>);
-
-            g.drawImage(img, <span class="number">0</span>, <span class="number">0</span>, <span class="literal">null</span>);
-            g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));   
-            g.dispose();   
-            os = <span class="keyword">new</span> FileOutputStream(targerPath);   
-            <span class="comment">// 生成图片   </span>
-            ImageIO.write(buffImg, <span class="string">"JPG"</span>, os);   
-        } <span class="keyword">catch</span> (Exception e) {   
-            e.printStackTrace();   
-        } <span class="keyword">finally</span> {   
-            <span class="keyword">try</span> {   
-                <span class="keyword">if</span> (<span class="literal">null</span> != os)   
-                    os.close();   
-            } <span class="keyword">catch</span> (Exception e) {   
-                e.printStackTrace();   
-            }   
-        }   
-    }   
-} 
-</code></pre><p><img src="http://7xire1.com1.z0.glb.clouddn.com/Fri%20Oct%2030%2023%3A54%3A54%20CST%202015.jpg" alt="http://7xire1.com1.z0.glb.clouddn.com/Fri%20Oct%2030%2023%3A54%3A54%20CST%202015.jpg"></p>
-
-      
+      <% if (post.excerpt && index){ %>
+        <%- post.excerpt %>
+        <% if (theme.excerpt_link){ %>
+          <p class="article-more-link">
+            <a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
+          </p>
+        <% } %>
+      <% } else { %>
+        <%- post.content %>
+      <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/31/java给图片打水印/" data-id="cii0atk4i001hg5swrmjm8pqa" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javase/">javase</a></li></ul>
-
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" class="article-share-link">Share</a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link">Comments</a>
+      <% } %>
+      <%- partial('post/tag') %>
     </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2015/10/31/Servlet中doGet与doPost的区别/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Servlet中doGet与doPost的区别
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2015/10/29/git-eclipse-不标记修改后的文件（没有图标标明/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">git eclipse 不标记修改后的文件（没有图标标明)</div>
-    </a>
-  
-</nav>
-
-  
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
 </article>
 
+ <% if (!index && post.comments && config.duoshuo_shortname){ %>
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="<%= post.layout %>-<%= post.slug %>" data-title="<%= post.title %>" data-url="<%= page.permalink %>"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'<%= config.duoshuo_shortname %>'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  <% } %>
 </section>
         
           <aside id="sidebar">
@@ -306,7 +189,7 @@ public <span class="class"><span class="keyword">class</span> <span class="title
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2015 John Doe<br>
+      &copy; 2016 John Doe<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

@@ -86,19 +86,7 @@
       <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" class="article-share-link">Share</a>
-      <% if (post.comments && config.duoshuo_shortname){ %>
-        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link">Comments</a>
-      <% } %>
-      <%- partial('post/tag') %>
-    </footer>
-  </div>
-  <% if (!index){ %>
-    <%- partial('post/nav') %>
-  <% } %>
-</article>
-
- <% if (!index && post.comments && config.duoshuo_shortname){ %>
+      <% if (!index && post.comments && config.duoshuo_shortname){ %>
   <section id="comments">
     <!-- 多说评论框 start -->
 	<div class="ds-thread" data-thread-key="<%= post.layout %>-<%= post.slug %>" data-title="<%= post.title %>" data-url="<%= page.permalink %>"></div>
@@ -119,6 +107,14 @@ var duoshuoQuery = {short_name:"wangxjnet"};
 
   </section>
   <% } %>
+    </footer>
+  </div>
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
+</article>
+
+ 
 
   
     <article id="<%= post.layout %>-<%= post.slug %>" class="article article-type-<%= post.layout %>" itemscope itemprop="blogPost">
@@ -146,19 +142,7 @@ var duoshuoQuery = {short_name:"wangxjnet"};
       <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" class="article-share-link">Share</a>
-      <% if (post.comments && config.duoshuo_shortname){ %>
-        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link">Comments</a>
-      <% } %>
-      <%- partial('post/tag') %>
-    </footer>
-  </div>
-  <% if (!index){ %>
-    <%- partial('post/nav') %>
-  <% } %>
-</article>
-
- <% if (!index && post.comments && config.duoshuo_shortname){ %>
+      <% if (!index && post.comments && config.duoshuo_shortname){ %>
   <section id="comments">
     <!-- 多说评论框 start -->
 	<div class="ds-thread" data-thread-key="<%= post.layout %>-<%= post.slug %>" data-title="<%= post.title %>" data-url="<%= page.permalink %>"></div>
@@ -179,6 +163,14 @@ var duoshuoQuery = {short_name:"wangxjnet"};
 
   </section>
   <% } %>
+    </footer>
+  </div>
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
+</article>
+
+ 
 
   
     <article id="<%= post.layout %>-<%= post.slug %>" class="article article-type-<%= post.layout %>" itemscope itemprop="blogPost">
@@ -206,19 +198,7 @@ var duoshuoQuery = {short_name:"wangxjnet"};
       <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" class="article-share-link">Share</a>
-      <% if (post.comments && config.duoshuo_shortname){ %>
-        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link">Comments</a>
-      <% } %>
-      <%- partial('post/tag') %>
-    </footer>
-  </div>
-  <% if (!index){ %>
-    <%- partial('post/nav') %>
-  <% } %>
-</article>
-
- <% if (!index && post.comments && config.duoshuo_shortname){ %>
+      <% if (!index && post.comments && config.duoshuo_shortname){ %>
   <section id="comments">
     <!-- 多说评论框 start -->
 	<div class="ds-thread" data-thread-key="<%= post.layout %>-<%= post.slug %>" data-title="<%= post.title %>" data-url="<%= page.permalink %>"></div>
@@ -239,6 +219,14 @@ var duoshuoQuery = {short_name:"wangxjnet"};
 
   </section>
   <% } %>
+    </footer>
+  </div>
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
+</article>
+
+ 
 
   
     <article id="<%= post.layout %>-<%= post.slug %>" class="article article-type-<%= post.layout %>" itemscope itemprop="blogPost">
@@ -266,19 +254,7 @@ var duoshuoQuery = {short_name:"wangxjnet"};
       <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" class="article-share-link">Share</a>
-      <% if (post.comments && config.duoshuo_shortname){ %>
-        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link">Comments</a>
-      <% } %>
-      <%- partial('post/tag') %>
-    </footer>
-  </div>
-  <% if (!index){ %>
-    <%- partial('post/nav') %>
-  <% } %>
-</article>
-
- <% if (!index && post.comments && config.duoshuo_shortname){ %>
+      <% if (!index && post.comments && config.duoshuo_shortname){ %>
   <section id="comments">
     <!-- 多说评论框 start -->
 	<div class="ds-thread" data-thread-key="<%= post.layout %>-<%= post.slug %>" data-title="<%= post.title %>" data-url="<%= page.permalink %>"></div>
@@ -299,6 +275,14 @@ var duoshuoQuery = {short_name:"wangxjnet"};
 
   </section>
   <% } %>
+    </footer>
+  </div>
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
+</article>
+
+ 
 
   
     <article id="<%= post.layout %>-<%= post.slug %>" class="article article-type-<%= post.layout %>" itemscope itemprop="blogPost">
@@ -326,19 +310,7 @@ var duoshuoQuery = {short_name:"wangxjnet"};
       <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" class="article-share-link">Share</a>
-      <% if (post.comments && config.duoshuo_shortname){ %>
-        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link">Comments</a>
-      <% } %>
-      <%- partial('post/tag') %>
-    </footer>
-  </div>
-  <% if (!index){ %>
-    <%- partial('post/nav') %>
-  <% } %>
-</article>
-
- <% if (!index && post.comments && config.duoshuo_shortname){ %>
+      <% if (!index && post.comments && config.duoshuo_shortname){ %>
   <section id="comments">
     <!-- 多说评论框 start -->
 	<div class="ds-thread" data-thread-key="<%= post.layout %>-<%= post.slug %>" data-title="<%= post.title %>" data-url="<%= page.permalink %>"></div>
@@ -359,6 +331,14 @@ var duoshuoQuery = {short_name:"wangxjnet"};
 
   </section>
   <% } %>
+    </footer>
+  </div>
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
+</article>
+
+ 
 
   
     <article id="<%= post.layout %>-<%= post.slug %>" class="article article-type-<%= post.layout %>" itemscope itemprop="blogPost">
@@ -386,19 +366,7 @@ var duoshuoQuery = {short_name:"wangxjnet"};
       <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" class="article-share-link">Share</a>
-      <% if (post.comments && config.duoshuo_shortname){ %>
-        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link">Comments</a>
-      <% } %>
-      <%- partial('post/tag') %>
-    </footer>
-  </div>
-  <% if (!index){ %>
-    <%- partial('post/nav') %>
-  <% } %>
-</article>
-
- <% if (!index && post.comments && config.duoshuo_shortname){ %>
+      <% if (!index && post.comments && config.duoshuo_shortname){ %>
   <section id="comments">
     <!-- 多说评论框 start -->
 	<div class="ds-thread" data-thread-key="<%= post.layout %>-<%= post.slug %>" data-title="<%= post.title %>" data-url="<%= page.permalink %>"></div>
@@ -419,6 +387,14 @@ var duoshuoQuery = {short_name:"wangxjnet"};
 
   </section>
   <% } %>
+    </footer>
+  </div>
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
+</article>
+
+ 
 
   
     <article id="<%= post.layout %>-<%= post.slug %>" class="article article-type-<%= post.layout %>" itemscope itemprop="blogPost">
@@ -446,19 +422,7 @@ var duoshuoQuery = {short_name:"wangxjnet"};
       <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" class="article-share-link">Share</a>
-      <% if (post.comments && config.duoshuo_shortname){ %>
-        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link">Comments</a>
-      <% } %>
-      <%- partial('post/tag') %>
-    </footer>
-  </div>
-  <% if (!index){ %>
-    <%- partial('post/nav') %>
-  <% } %>
-</article>
-
- <% if (!index && post.comments && config.duoshuo_shortname){ %>
+      <% if (!index && post.comments && config.duoshuo_shortname){ %>
   <section id="comments">
     <!-- 多说评论框 start -->
 	<div class="ds-thread" data-thread-key="<%= post.layout %>-<%= post.slug %>" data-title="<%= post.title %>" data-url="<%= page.permalink %>"></div>
@@ -479,6 +443,14 @@ var duoshuoQuery = {short_name:"wangxjnet"};
 
   </section>
   <% } %>
+    </footer>
+  </div>
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
+</article>
+
+ 
 
   
     <article id="<%= post.layout %>-<%= post.slug %>" class="article article-type-<%= post.layout %>" itemscope itemprop="blogPost">
@@ -506,19 +478,7 @@ var duoshuoQuery = {short_name:"wangxjnet"};
       <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" class="article-share-link">Share</a>
-      <% if (post.comments && config.duoshuo_shortname){ %>
-        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link">Comments</a>
-      <% } %>
-      <%- partial('post/tag') %>
-    </footer>
-  </div>
-  <% if (!index){ %>
-    <%- partial('post/nav') %>
-  <% } %>
-</article>
-
- <% if (!index && post.comments && config.duoshuo_shortname){ %>
+      <% if (!index && post.comments && config.duoshuo_shortname){ %>
   <section id="comments">
     <!-- 多说评论框 start -->
 	<div class="ds-thread" data-thread-key="<%= post.layout %>-<%= post.slug %>" data-title="<%= post.title %>" data-url="<%= page.permalink %>"></div>
@@ -539,6 +499,14 @@ var duoshuoQuery = {short_name:"wangxjnet"};
 
   </section>
   <% } %>
+    </footer>
+  </div>
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
+</article>
+
+ 
 
   
     <article id="<%= post.layout %>-<%= post.slug %>" class="article article-type-<%= post.layout %>" itemscope itemprop="blogPost">
@@ -566,19 +534,7 @@ var duoshuoQuery = {short_name:"wangxjnet"};
       <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" class="article-share-link">Share</a>
-      <% if (post.comments && config.duoshuo_shortname){ %>
-        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link">Comments</a>
-      <% } %>
-      <%- partial('post/tag') %>
-    </footer>
-  </div>
-  <% if (!index){ %>
-    <%- partial('post/nav') %>
-  <% } %>
-</article>
-
- <% if (!index && post.comments && config.duoshuo_shortname){ %>
+      <% if (!index && post.comments && config.duoshuo_shortname){ %>
   <section id="comments">
     <!-- 多说评论框 start -->
 	<div class="ds-thread" data-thread-key="<%= post.layout %>-<%= post.slug %>" data-title="<%= post.title %>" data-url="<%= page.permalink %>"></div>
@@ -599,6 +555,14 @@ var duoshuoQuery = {short_name:"wangxjnet"};
 
   </section>
   <% } %>
+    </footer>
+  </div>
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
+</article>
+
+ 
 
   
     <article id="<%= post.layout %>-<%= post.slug %>" class="article article-type-<%= post.layout %>" itemscope itemprop="blogPost">
@@ -626,19 +590,7 @@ var duoshuoQuery = {short_name:"wangxjnet"};
       <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" class="article-share-link">Share</a>
-      <% if (post.comments && config.duoshuo_shortname){ %>
-        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link">Comments</a>
-      <% } %>
-      <%- partial('post/tag') %>
-    </footer>
-  </div>
-  <% if (!index){ %>
-    <%- partial('post/nav') %>
-  <% } %>
-</article>
-
- <% if (!index && post.comments && config.duoshuo_shortname){ %>
+      <% if (!index && post.comments && config.duoshuo_shortname){ %>
   <section id="comments">
     <!-- 多说评论框 start -->
 	<div class="ds-thread" data-thread-key="<%= post.layout %>-<%= post.slug %>" data-title="<%= post.title %>" data-url="<%= page.permalink %>"></div>
@@ -659,6 +611,14 @@ var duoshuoQuery = {short_name:"wangxjnet"};
 
   </section>
   <% } %>
+    </footer>
+  </div>
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
+</article>
+
+ 
 
   
   

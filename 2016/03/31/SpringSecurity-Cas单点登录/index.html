@@ -1,0 +1,162 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>SpringSecurity-Cas单点登录 | 火山</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/3.0.3/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">SpringSecurity-Cas单点登录</h1><a id="logo" href="/.">火山</a><p class="description"></p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">SpringSecurity-Cas单点登录</h1><div class="post-meta">Mar 31, 2016<script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><a data-disqus-identifier="2016/03/31/SpringSecurity-Cas单点登录/" href="/2016/03/31/SpringSecurity-Cas单点登录/#disqus_thread" class="disqus-comment-count"></a><div class="post-content"><p>前段时间公司需要做单点登录，现在记录一下过程，好记性不如烂笔头。有时候想写这些也没什么用，一个好的程序员不应该死板的记这些。看来我只能属于不怎样的行列了。</p>
+<p>##配置证书</p>
+<p>首先使用cas单点登录需要使用https协议，所以需要配置证书。我这里只有cas服务器使用了https协议，单点登录客户端（应用）都使用http协议，所以：只需要</p>
+<ol>
+<li>使用cas服务器域名生成证书，配置cas服务器。</li>
+<li>使用刚才生成的证书导出客户端证书，然后导入到客户端jre证书库中（/jre/lib/security/cacerts）</li>
+</ol>
+<p>使用java自带keytool生成证书：</p>
+<p>###生成服务器端证书</p>
+<pre><code><span class="label">keytool</span> -genkey -<span class="preprocessor">alias</span>  casserver -keyalg RSA -keystore /<span class="preprocessor">opt</span>/keystore/caskey
+</code></pre><p>  casserver是该证书在证书库中的别名，在证书库中别名是唯一的</p>
+<p>  <img src="http://7xire1.com1.z0.glb.clouddn.com/springsecurity-cas-zhengshu1.png" alt=""></p>
+<p>  在这里，您的名字与姓氏，要输入该应用的域名，在这里就是cas服务器的域名</p>
+<p>###生成客户端证书</p>
+<p>使用刚才生成的服务器端证书导出客户端证书</p>
+<pre><code><span class="label">keytool</span> -<span class="preprocessor">export</span> -file /<span class="preprocessor">opt</span>/keystore/caskey.crt -<span class="preprocessor">alias</span> casserver -keystore /<span class="preprocessor">opt</span>/keystore/caskey 
+</code></pre><p><img src="http://7xire1.com1.z0.glb.clouddn.com/springsecurity-cas-zhengshu2.png" alt="http://7xire1.com1.z0.glb.clouddn.com/springsecurity-cas-zhengshu2.png"></p>
+<p>###配置</p>
+<p>OK,现在证书都已经生成了，接下来就是配置了</p>
+<p>####服务器端配置</p>
+<p>如果使用Tomcat：</p>
+<pre><code><span class="tag">&lt;<span class="title">Connector</span> <span class="attribute">port</span>=<span class="value">"8443"</span> <span class="attribute">protocol</span>=<span class="value">"HTTP/1.1"</span> <span class="attribute">SSLEnabled</span>=<span class="value">"true"</span>  
+       <span class="attribute">maxThreads</span>=<span class="value">"150"</span> <span class="attribute">scheme</span>=<span class="value">"https"</span> <span class="attribute">secure</span>=<span class="value">"true"</span>  
+       <span class="attribute">clientAuth</span>=<span class="value">"false"</span> <span class="attribute">sslProtocol</span>=<span class="value">"TLS"</span>   
+       <span class="attribute">keystoreFile</span>=<span class="value">"/opt/keystore/caskey"</span> 
+       <span class="attribute">keystorePass</span>=<span class="value">"123456"</span>/&gt;</span>
+</code></pre><p>就这样简单，服务器端证书就配置完成了</p>
+<p>如果要是使用到apache或者nginx,那也就不用在tomcat上配置了，生成apatche或nginx对应证书在Apatche或nginx服务器上配置就OK了</p>
+<p>####客户端配置</p>
+<p>因为我这里客户端使用的是http协议，所以不需要配置什么东西，只需要把生成的客户端证书导入到jre证书库中就可以了。当然如果客户端也使用的https协议，那么就像cas服务器配置就是了</p>
+<p>导入证书库证书:</p>
+<pre><code>keytool -import -keystore /opt/jdk8/jre/<span class="class"><span class="keyword">lib</span>/<span class="title">security</span>/<span class="title">cacerts</span> -<span class="title">file</span> /<span class="title">opt</span>/<span class="title">keystore</span>/<span class="title">caskey</span>.<span class="title">crt</span> -<span class="title">alias</span>   <span class="title">caskey</span></span>
+</code></pre><p><img src="http://7xire1.com1.z0.glb.clouddn.com/springsecurity-cas-zhengshu3.png" alt="http://7xire1.com1.z0.glb.clouddn.com/springsecurity-cas-zhengshu3.png"></p>
+<p>在导入时要求输入证书库密码：jre证书库默认密码为changeit。如果实在忘记密码，而证书库中又没有重要证书，可以直接把cacerts文件删掉。重新生成</p>
+<p>到此证书配置完成</p>
+<hr>
+<h2 id="SpringSecurity的理解">SpringSecurity的理解</h2><p>springsecurity是一个权限框架（这是废话）,既然是权限框架它从大的方面来说，主要包含两部分:认证和授权。</p>
+<blockquote>
+<p>SpringSecurity有自己完整的认证和授权，但我现在要说的是SpringSecurity和CAS的整合，所以这里将认证部分由CAS来处理</p>
+</blockquote>
+<pre><code><span class="tag">&lt;<span class="title">dependency</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.security<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-security-cas<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">version</span>&gt;</span>${project.springsecurity.version}<span class="tag">&lt;/<span class="title">version</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span>
+</code></pre><p>这个包就是用来处理SpringSecurity与CAS的整合的：将认证用CAS</p>
+<pre><code>&lt;!-- 使security标签生效 --&gt;
+&lt;beans:bean id=<span class="string">"customWebInvocationPrivilegeEvaluator"</span> class=<span class="string">"org.springframework.security.web.access.DefaultWebInvocationPrivilegeEvaluator"</span>&gt;
+    &lt;beans:constructor-arg <span class="keyword">ref</span>=<span class="string">"userSecurityInterceptorFilter"</span> /&gt;
+&lt;/beans:bean&gt;
+
+&lt;http pattern=<span class="string">"/css/**"</span> security=<span class="string">"none"</span> /&gt;
+&lt;http pattern=<span class="string">"/js/**"</span> security=<span class="string">"none"</span> /&gt;
+&lt;http pattern=<span class="string">"/fonts/*"</span> security=<span class="string">"none"</span> /&gt;
+&lt;http pattern=<span class="string">"/vimage*"</span> security=<span class="string">"none"</span> /&gt;
+&lt;http pattern=<span class="string">"/server-error/*"</span> security=<span class="string">"none"</span> /&gt;
+&lt;http pattern=<span class="string">"/favicon.ico"</span> security=<span class="string">"none"</span> /&gt;
+&lt;http pattern=<span class="string">"/image/*"</span> security=<span class="string">"none"</span> /&gt;
+
+
+&lt;http <span class="type">auto</span>-config=<span class="string">"true"</span> entry-point-<span class="keyword">ref</span>=<span class="string">"casAuthenticationEntryPoint"</span>&gt;
+    &lt;intercept-url pattern=<span class="string">"/**"</span> access=<span class="string">"authenticated"</span>/&gt;
+    &lt;custom-filter <span class="keyword">ref</span>=<span class="string">"requestSingleLogoutFilter"</span> before=<span class="string">"LOGOUT_FILTER"</span>/&gt;
+    &lt;custom-filter <span class="keyword">ref</span>=<span class="string">"singleLogoutFilter"</span> before=<span class="string">"CAS_FILTER"</span>/&gt;
+    &lt;!-- 使用<span class="type">SpringSecurity</span>授权 --&gt;
+    &lt;custom-filter <span class="keyword">ref</span>=<span class="string">"userSecurityInterceptorFilter"</span> before=<span class="string">"FILTER_SECURITY_INTERCEPTOR"</span>/&gt;
+    &lt;!-- 使用<span class="type">Cas</span>认证 --&gt;
+    &lt;custom-filter position=<span class="string">"CAS_FILTER"</span> <span class="keyword">ref</span>=<span class="string">"casAuthenticaionFilter"</span> /&gt;
+
+    &lt;csrf disabled=<span class="string">"true"</span>/&gt;
+    &lt;access-denied-handler <span class="keyword">ref</span>=<span class="string">"userAccessDeniedHandler"</span> /&gt;
+&lt;/http&gt;
+&lt;beans:bean id=<span class="string">"requestSingleLogoutFilter"</span> class=<span class="string">"com.kalian.security.plug.authority.KalianLogoutFilter"</span>&gt;
+    &lt;beans:constructor-arg value=<span class="string">"${cas.server.logout.url}"</span> /&gt;
+    &lt;beans:constructor-arg&gt;
+        &lt;beans:bean class=<span class="string">"org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler"</span> /&gt;
+    &lt;/beans:constructor-arg&gt;
+    &lt;beans:property name=<span class="string">"filterProcessesUrl"</span> value=<span class="string">"${springsecurity.logout.url}"</span> /&gt;
+&lt;/beans:bean&gt;
+
+&lt;beans:bean id=<span class="string">"singleLogoutFilter"</span> class=<span class="string">"org.jasig.cas.client.session.SingleSignOutFilter"</span> /&gt;
+
+&lt;!-- 若没有登陆，则跳转到<span class="type">Cas</span>认证系统 --&gt;
+&lt;beans:bean id=<span class="string">"casAuthenticationEntryPoint"</span> class=<span class="string">"com.kalian.security.plug.authority.KalianCasAuthenticationEntryPoint"</span>&gt;
+    &lt;beans:property name=<span class="string">"loginUrl"</span> value=<span class="string">"${cas.server.login.url}"</span> /&gt;
+    &lt;beans:property name=<span class="string">"serviceProperties"</span> <span class="keyword">ref</span>=<span class="string">"serviceProperties"</span> /&gt;
+&lt;/beans:bean&gt;
+&lt;beans:bean id=<span class="string">"serviceProperties"</span> class=<span class="string">"org.springframework.security.cas.ServiceProperties"</span>&gt;
+    &lt;beans:property name=<span class="string">"service"</span> value=<span class="string">"http://baidu.com"</span> /&gt;
+    &lt;beans:property name=<span class="string">"sendRenew"</span> value=<span class="string">"false"</span> /&gt;
+&lt;/beans:bean&gt;
+
+&lt;!-- <span class="type">CAS</span>过滤器 --&gt;
+&lt;beans:bean id=<span class="string">"casAuthenticaionFilter"</span> class=<span class="string">"com.kalian.security.plug.authority.KalianCasAuthenticationFilter"</span>&gt;
+    &lt;beans:property name=<span class="string">"authenticationManager"</span> <span class="keyword">ref</span>=<span class="string">"kalianAuthenticationManager"</span> /&gt;
+
+&lt;/beans:bean&gt;
+
+&lt;authentication-manager alias=<span class="string">"kalianAuthenticationManager"</span>&gt;
+    &lt;authentication-provider <span class="keyword">ref</span>=<span class="string">"casAuthenticationProvider"</span> /&gt;
+&lt;/authentication-manager&gt;
+&lt;beans:bean id=<span class="string">"casAuthenticationProvider"</span> class=<span class="string">"com.kalian.security.plug.authority.KalianCasAuthenticationProvider"</span>&gt;
+    &lt;beans:property name=<span class="string">"authenticationUserDetailsService"</span> <span class="keyword">ref</span>=<span class="string">"casAuthenticationUserDetailsService"</span> /&gt;
+    &lt;beans:property name=<span class="string">"serviceProperties"</span> <span class="keyword">ref</span>=<span class="string">"serviceProperties"</span> /&gt;    
+    &lt;beans:property name=<span class="string">"ticketValidator"</span>&gt;    
+        &lt;beans:bean class=<span class="string">"org.jasig.cas.client.validation.Cas20ServiceTicketValidator"</span>&gt;    
+            &lt;beans:constructor-arg index=<span class="string">"0"</span> value=<span class="string">"${cas.server.login.url}"</span> /&gt;
+            &lt;beans:property name=<span class="string">"encoding"</span> value=<span class="string">"UTF-8"</span> /&gt;
+        &lt;/beans:bean&gt;    
+    &lt;/beans:property&gt;    
+    &lt;beans:property name=<span class="string">"key"</span> value=<span class="string">"an_id_for_this_auth_provider_only"</span>/&gt;
+&lt;/beans:bean&gt;
+
+&lt;beans:bean id=<span class="string">"casAuthenticationUserDetailsService"</span> class=<span class="string">"org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper"</span>&gt;    
+    &lt;beans:property name=<span class="string">"userDetailsService"</span> <span class="keyword">ref</span>=<span class="string">"userDetailsServiceImpl"</span> /&gt;    
+&lt;/beans:bean&gt;
+
+
+&lt;!-- 自定义权限验证 --&gt;
+&lt;beans:bean id=<span class="string">"userSecurityInterceptorFilter"</span> class=<span class="string">"com.kalian.security.plug.authority.UserSecurityInterceptorFilter"</span>&gt;
+    &lt;beans:property name=<span class="string">"authenticationManager"</span> <span class="keyword">ref</span>=<span class="string">"kalianAuthenticationManager"</span> /&gt;
+    &lt;beans:property name=<span class="string">"accessDecisionManager"</span> <span class="keyword">ref</span>=<span class="string">"accessDecisionManager"</span> /&gt;
+    &lt;beans:property name=<span class="string">"securityMetadataSource"</span> <span class="keyword">ref</span>=<span class="string">"userSecurityMetadataSource"</span> /&gt;
+&lt;/beans:bean&gt;
+&lt;beans:bean id=<span class="string">"accessDecisionManager"</span> class=<span class="string">"com.kalian.security.plug.authority.UserAccessDecisionManager"</span> /&gt;
+&lt;beans:bean id=<span class="string">"userSecurityMetadataSource"</span> class=<span class="string">"com.kalian.security.plug.authority.UserSecurityMetadataSource"</span> /&gt;
+&lt;beans:bean id=<span class="string">"userAccessDeniedHandler"</span> class=<span class="string">"com.kalian.security.plug.authority.UserAccessDeniedHandler"</span>&gt;
+    &lt;beans:property name=<span class="string">"errorPage"</span> value=<span class="string">"/server-error/denied.jsp"</span> /&gt;
+&lt;/beans:bean&gt;
+</code></pre><p>上边是我应用端完整的配置,看上去很多，一步一步解析:</p>
+<pre><code><span class="tag">&lt;<span class="title">http</span> <span class="attribute">pattern</span>=<span class="value">"/css/**"</span> <span class="attribute">security</span>=<span class="value">"none"</span> /&gt;</span>
+<span class="tag">&lt;<span class="title">http</span> <span class="attribute">pattern</span>=<span class="value">"/js/**"</span> <span class="attribute">security</span>=<span class="value">"none"</span> /&gt;</span>
+<span class="tag">&lt;<span class="title">http</span> <span class="attribute">pattern</span>=<span class="value">"/fonts/*"</span> <span class="attribute">security</span>=<span class="value">"none"</span> /&gt;</span>
+<span class="tag">&lt;<span class="title">http</span> <span class="attribute">pattern</span>=<span class="value">"/vimage*"</span> <span class="attribute">security</span>=<span class="value">"none"</span> /&gt;</span>
+<span class="tag">&lt;<span class="title">http</span> <span class="attribute">pattern</span>=<span class="value">"/server-error/*"</span> <span class="attribute">security</span>=<span class="value">"none"</span> /&gt;</span>
+<span class="tag">&lt;<span class="title">http</span> <span class="attribute">pattern</span>=<span class="value">"/favicon.ico"</span> <span class="attribute">security</span>=<span class="value">"none"</span> /&gt;</span>
+<span class="tag">&lt;<span class="title">http</span> <span class="attribute">pattern</span>=<span class="value">"/image/*"</span> <span class="attribute">security</span>=<span class="value">"none"</span> /&gt;</span>
+</code></pre><blockquote>
+<p> 这部分是忽略过滤拦截静态资源</p>
+</blockquote>
+<pre><code>&lt;http <span class="type">auto</span>-config=<span class="string">"true"</span> entry-point-<span class="keyword">ref</span>=<span class="string">"casAuthenticationEntryPoint"</span>&gt;
+    &lt;intercept-url pattern=<span class="string">"/**"</span> access=<span class="string">"authenticated"</span>/&gt;
+    &lt;custom-filter <span class="keyword">ref</span>=<span class="string">"requestSingleLogoutFilter"</span> before=<span class="string">"LOGOUT_FILTER"</span>/&gt;
+    &lt;custom-filter <span class="keyword">ref</span>=<span class="string">"singleLogoutFilter"</span> before=<span class="string">"CAS_FILTER"</span>/&gt;
+    &lt;!-- 使用<span class="type">SpringSecurity</span>授权 --&gt;
+    &lt;custom-filter <span class="keyword">ref</span>=<span class="string">"userSecurityInterceptorFilter"</span> before=<span class="string">"FILTER_SECURITY_INTERCEPTOR"</span>/&gt;
+    &lt;!-- 使用<span class="type">Cas</span>认证 --&gt;
+    &lt;custom-filter position=<span class="string">"CAS_FILTER"</span> <span class="keyword">ref</span>=<span class="string">"casAuthenticaionFilter"</span> /&gt;
+
+    &lt;csrf disabled=<span class="string">"true"</span>/&gt;
+    &lt;access-denied-handler <span class="keyword">ref</span>=<span class="string">"userAccessDeniedHandler"</span> /&gt;
+&lt;/http&gt;
+</code></pre><p> 当请求到来时会被casAuthenticationEntryPoint拦截，</p>
+</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://yoursite.com/2016/03/31/SpringSecurity-Cas单点登录/" data-id="cimge2pb60025tzswk9afu447" class="article-share-link">分享到</a><div class="tags"></div><div class="post-nav"><a href="/2015/11/19/eclipse—tomcat空加载/" class="next">eclipse—tomcat空加载</a></div><div id="disqus_thread"><script>var disqus_shortname = 'wangxjnet';
+var disqus_identifier = '2016/03/31/SpringSecurity-Cas单点登录/';
+var disqus_title = 'SpringSecurity-Cas单点登录';
+var disqus_url = 'http://yoursite.com/2016/03/31/SpringSecurity-Cas单点登录/';
+(function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//wangxjnet.disqus.com/count.js" async></script></div></div></div></div><div class="pure-u-1-4"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://yoursite.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/http/" style="font-size: 15px;">http</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/javaWeb/" style="font-size: 15px;">javaWeb</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/markdown/" style="font-size: 15px;">markdown</a> <a href="/tags/mybatis/" style="font-size: 15px;">mybatis</a> <a href="/tags/log4j/" style="font-size: 15px;">log4j</a> <a href="/tags/javase/" style="font-size: 15px;">javase</a> <a href="/tags/gradle/" style="font-size: 15px;">gradle</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/eclipse/" style="font-size: 15px;">eclipse</a> <a href="/tags/freemarker/" style="font-size: 15px;">freemarker</a> <a href="/tags/tomcat/" style="font-size: 15px;">tomcat</a> <a href="/tags/SpringMVC/" style="font-size: 15px;">SpringMVC</a> <a href="/tags/oracle/" style="font-size: 15px;">oracle</a> <a href="/tags/jetty/" style="font-size: 15px;">jetty</a> <a href="/tags/HEXO/" style="font-size: 15px;">HEXO</a> <a href="/tags/Groovy/" style="font-size: 15px;">Groovy</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/03/31/SpringSecurity-Cas单点登录/">SpringSecurity-Cas单点登录</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/19/eclipse—tomcat空加载/">eclipse—tomcat空加载</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/13/理解操作系统中的线程与进程/">理解操作系统中的线程与进程</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/13/classLoader简绍/">classLoader简绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/10/freemarker遍历求和/">freemarker遍历求和</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/08/freemarker文档/">freemarker文档</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/08/git文档/">git文档</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/08/http协议/">http协议</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/06/Groovy简介/">Groovy简介</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/06/认识gradle/">认识gradle</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-comment-o"> 最近评论</i></div><script type="text/javascript" src="//wangxjnet.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=1&amp;avatar_size=32&amp;excerpt_length=20&amp;hide_mods=1"></script></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/freehuoshan" title="github" target="_blank">github</a><ul></ul><a href="http://www.proginn.com/wo/40365" title="程序员客栈" target="_blank">程序员客栈</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">© <a href="/." rel="nofollow">火山.</a> Powered by<a rel="nofollow" target="_blank" href="https://github.com/freehuoshan"> github.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="/css/jquery.fancybox.css?v=0.0.0"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

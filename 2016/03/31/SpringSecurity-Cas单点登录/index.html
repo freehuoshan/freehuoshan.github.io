@@ -1,24 +1,19 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>SpringSecurity-Cas单点登录 | 火山</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/3.0.3/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">SpringSecurity-Cas单点登录</h1><a id="logo" href="/.">火山</a><p class="description"></p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">SpringSecurity-Cas单点登录</h1><div class="post-meta">Mar 31, 2016<script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><a data-disqus-identifier="2016/03/31/SpringSecurity-Cas单点登录/" href="/2016/03/31/SpringSecurity-Cas单点登录/#disqus_thread" class="disqus-comment-count"></a><div class="post-content"><p>前段时间公司需要做单点登录，现在记录一下过程，好记性不如烂笔头。有时候想写这些也没什么用，一个好的程序员不应该死板的记这些。看来我只能属于不怎样的行列了。</p>
-<p>##配置证书</p>
-<p>首先使用cas单点登录需要使用https协议，所以需要配置证书。我这里只有cas服务器使用了https协议，单点登录客户端（应用）都使用http协议，所以：只需要</p>
+<h2 id="配置证书">配置证书</h2><p>首先使用cas单点登录需要使用https协议，所以需要配置证书。我这里只有cas服务器使用了https协议，单点登录客户端（应用）都使用http协议，所以：只需要</p>
 <ol>
 <li>使用cas服务器域名生成证书，配置cas服务器。</li>
 <li>使用刚才生成的证书导出客户端证书，然后导入到客户端jre证书库中（/jre/lib/security/cacerts）</li>
 </ol>
 <p>使用java自带keytool生成证书：</p>
-<p>###生成服务器端证书</p>
-<pre><code><span class="label">keytool</span> -genkey -<span class="preprocessor">alias</span>  casserver -keyalg RSA -keystore /<span class="preprocessor">opt</span>/keystore/caskey
+<h3 id="生成服务器端证书">生成服务器端证书</h3><pre><code><span class="label">keytool</span> -genkey -<span class="preprocessor">alias</span>  casserver -keyalg RSA -keystore /<span class="preprocessor">opt</span>/keystore/caskey
 </code></pre><p>  casserver是该证书在证书库中的别名，在证书库中别名是唯一的</p>
 <p>  <img src="http://7xire1.com1.z0.glb.clouddn.com/springsecurity-cas-zhengshu1.png" alt=""></p>
 <p>  在这里，您的名字与姓氏，要输入该应用的域名，在这里就是cas服务器的域名</p>
-<p>###生成客户端证书</p>
-<p>使用刚才生成的服务器端证书导出客户端证书</p>
+<h3 id="生成客户端证书">生成客户端证书</h3><p>使用刚才生成的服务器端证书导出客户端证书</p>
 <pre><code><span class="label">keytool</span> -<span class="preprocessor">export</span> -file /<span class="preprocessor">opt</span>/keystore/caskey.crt -<span class="preprocessor">alias</span> casserver -keystore /<span class="preprocessor">opt</span>/keystore/caskey 
 </code></pre><p><img src="http://7xire1.com1.z0.glb.clouddn.com/springsecurity-cas-zhengshu2.png" alt="http://7xire1.com1.z0.glb.clouddn.com/springsecurity-cas-zhengshu2.png"></p>
-<p>###配置</p>
-<p>OK,现在证书都已经生成了，接下来就是配置了</p>
-<p>####服务器端配置</p>
-<p>如果使用Tomcat：</p>
+<h3 id="配置">配置</h3><p>OK,现在证书都已经生成了，接下来就是配置了</p>
+<h4 id="服务器端配置">服务器端配置</h4><p>如果使用Tomcat：</p>
 <pre><code><span class="tag">&lt;<span class="title">Connector</span> <span class="attribute">port</span>=<span class="value">"8443"</span> <span class="attribute">protocol</span>=<span class="value">"HTTP/1.1"</span> <span class="attribute">SSLEnabled</span>=<span class="value">"true"</span>  
        <span class="attribute">maxThreads</span>=<span class="value">"150"</span> <span class="attribute">scheme</span>=<span class="value">"https"</span> <span class="attribute">secure</span>=<span class="value">"true"</span>  
        <span class="attribute">clientAuth</span>=<span class="value">"false"</span> <span class="attribute">sslProtocol</span>=<span class="value">"TLS"</span>   
@@ -26,8 +21,7 @@
        <span class="attribute">keystorePass</span>=<span class="value">"123456"</span>/&gt;</span>
 </code></pre><p>就这样简单，服务器端证书就配置完成了</p>
 <p>如果要是使用到apache或者nginx,那也就不用在tomcat上配置了，生成apatche或nginx对应证书在Apatche或nginx服务器上配置就OK了</p>
-<p>####客户端配置</p>
-<p>因为我这里客户端使用的是http协议，所以不需要配置什么东西，只需要把生成的客户端证书导入到jre证书库中就可以了。当然如果客户端也使用的https协议，那么就像cas服务器配置就是了</p>
+<h4 id="客户端配置">客户端配置</h4><p>因为我这里客户端使用的是http协议，所以不需要配置什么东西，只需要把生成的客户端证书导入到jre证书库中就可以了。当然如果客户端也使用的https协议，那么就像cas服务器配置就是了</p>
 <p>导入证书库证书:</p>
 <pre><code>keytool -import -keystore /opt/jdk8/jre/<span class="class"><span class="keyword">lib</span>/<span class="title">security</span>/<span class="title">cacerts</span> -<span class="title">file</span> /<span class="title">opt</span>/<span class="title">keystore</span>/<span class="title">caskey</span>.<span class="title">crt</span> -<span class="title">alias</span>   <span class="title">caskey</span></span>
 </code></pre><p><img src="http://7xire1.com1.z0.glb.clouddn.com/springsecurity-cas-zhengshu3.png" alt="http://7xire1.com1.z0.glb.clouddn.com/springsecurity-cas-zhengshu3.png"></p>
@@ -151,7 +145,7 @@
     &lt;access-denied-handler <span class="keyword">ref</span>=<span class="string">"userAccessDeniedHandler"</span> /&gt;
 &lt;/http&gt;
 </code></pre><p> 当请求到来时会被casAuthenticationEntryPoint拦截，</p>
-</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://yoursite.com/2016/03/31/SpringSecurity-Cas单点登录/" data-id="cimge2pb60025tzswk9afu447" class="article-share-link">分享到</a><div class="tags"></div><div class="post-nav"><a href="/2015/11/19/eclipse—tomcat空加载/" class="next">eclipse—tomcat空加载</a></div><div id="disqus_thread"><script>var disqus_shortname = 'wangxjnet';
+</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://yoursite.com/2016/03/31/SpringSecurity-Cas单点登录/" data-id="cimge7oy300256bswvf3akgt7" class="article-share-link">分享到</a><div class="tags"></div><div class="post-nav"><a href="/2015/11/19/eclipse—tomcat空加载/" class="next">eclipse—tomcat空加载</a></div><div id="disqus_thread"><script>var disqus_shortname = 'wangxjnet';
 var disqus_identifier = '2016/03/31/SpringSecurity-Cas单点登录/';
 var disqus_title = 'SpringSecurity-Cas单点登录';
 var disqus_url = 'http://yoursite.com/2016/03/31/SpringSecurity-Cas单点登录/';

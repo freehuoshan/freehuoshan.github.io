@@ -88,7 +88,7 @@ public interface NamespaceHandler {
 }
 ```
 
-> Security的SecurityNamespaceHandler实现了该接口
+> Security的SecurityNamespaceHandler实现了该接口(解析标签的过程实质上就是创建Bean，创建Filter将Filters添加到filterchain的过程)
 
 
 ```java
@@ -274,7 +274,7 @@ private BeanReference createFilterChain(Element element, ParserContext pc) {
 	//创建权限管理,根据authentication-manager-ref属性
 	BeanReference authenticationManager = createAuthenticationManager(element, pc,
 			authenticationProviders);
-
+     
 	boolean forceAutoConfig = isDefaultHttpConfig(element);
 	/**创建http相关createCsrfFilter();
 		createSecurityContextPersistenceFilter();

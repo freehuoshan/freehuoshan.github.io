@@ -21,9 +21,11 @@
 <li>空间预分配</li>
 </ol>
 <p>也就是会分配空余空间，额外分配的未使用空间由以下公式决定:</p>
-<pre><code>* 如果SDS进行修改之后，SDS的长度(也就是len属性的值)将小于<span class="number">1</span>MB,那么程序分配贺len属性同样大小的未使用空间，这时 SDS len属性的值将和<span class="built_in">free</span>属性的值相同。举个例子，如果进行修改之后,SDS的len将变成<span class="number">13</span>字节，那么程序也会分配<span class="number">13</span>字节未使用空间，SDS的buf数组实际长度将变成 <span class="number">13</span>+<span class="number">13</span>+<span class="number">1</span>=<span class="number">27</span>字节(额外的一字节用于保存空字符)
-* 如果SDS进行修改之后，SDS的长度将大于等于<span class="number">1</span>MB,那么程序会分配<span class="number">1</span>MB的未使用空间。举个例子，如果进行修改之后，SDS的len将变成<span class="number">30</span>M,那么程序会分配<span class="number">1</span>MB的未使用空间，SDS的buf实际长度将为<span class="number">30</span>MB+<span class="number">1</span>MB+<span class="number">1</span>byte
-</code></pre><p><strong> 通过这种分配策略，SDS将连续增长N次字符串所需的内存分配次数从必定N次降低为最多N次。</strong></p>
+<ul>
+<li>如果SDS进行修改之后，SDS的长度(也就是len属性的值)将小于1MB,那么程序分配贺len属性同样大小的未使用空间，这时 SDS len属性的值将和free属性的值相同。举个例子，如果进行修改之后,SDS的len将变成13字节，那么程序也会分配13字节未使用空间，SDS的buf数组实际长度将变成 13+13+1=27字节(额外的一字节用于保存空字符)</li>
+<li>如果SDS进行修改之后，SDS的长度将大于等于1MB,那么程序会分配1MB的未使用空间。举个例子，如果进行修改之后，SDS的len将变成30M,那么程序会分配1MB的未使用空间，SDS的buf实际长度将为30MB+1MB+1byte</li>
+</ul>
+<p><strong> 通过这种分配策略，SDS将连续增长N次字符串所需的内存分配次数从必定N次降低为最多N次。</strong></p>
 <ol>
 <li>惰性空间释放</li>
 </ol>
@@ -33,7 +35,7 @@
 <p>  兼容部分C字符串函数</p>
 </blockquote>
 <p>SDS 遵循了C语言的字符数组以’\0’空格结尾的惯例，所以可以重用部分 C 语言的函数</p>
-</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://yoursite.com/2016/09/07/Redis了解-一-SDS与C字符串的区别/" data-id="cissur15k0036ozsw9ultdmej" class="article-share-link">分享到</a><div class="tags"><a href="/tags/redis/">redis</a></div><div class="post-nav"><a href="/2016/08/18/hello-world/" class="next">Hello World</a></div><div id="disqus_thread"><script>var disqus_shortname = 'wangxjnet';
+</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://yoursite.com/2016/09/07/Redis了解-一-SDS与C字符串的区别/" data-id="cissuxp7u0036vtswjxr2inyj" class="article-share-link">分享到</a><div class="tags"><a href="/tags/redis/">redis</a></div><div class="post-nav"><a href="/2016/08/18/hello-world/" class="next">Hello World</a></div><div id="disqus_thread"><script>var disqus_shortname = 'wangxjnet';
 var disqus_identifier = '2016/09/07/Redis了解-一-SDS与C字符串的区别/';
 var disqus_title = 'Redis了解(一)SDS与C字符串的区别';
 var disqus_url = 'http://yoursite.com/2016/09/07/Redis了解-一-SDS与C字符串的区别/';
